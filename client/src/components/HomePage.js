@@ -2,7 +2,7 @@ import React from "react";
 
 const HomePage = (props) => {
     return(
-        <div className="primary">
+        <div className="primary background">
         <h2 className="secondary">Welcome to the Homepage</h2>
 
         <p>
