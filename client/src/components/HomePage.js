@@ -2,8 +2,8 @@ import React from "react";
 
 const HomePage = (props) => {
     return(
-        <div>
-        <h2>Welcome to the Homepage</h2>
+        <div className="primary">
+        <h2 className="secondary">Welcome to the Homepage</h2>
 
         <p>
             Rate my salad!

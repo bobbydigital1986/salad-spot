@@ -2,13 +2,19 @@
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
 // place global css here
-$foundation-palette: (
-  primary: #F2E3DB,
-  secondary: #41644A,
-  success: #263A29,
-  warning: #E86A33,
-  alert: #cc4b37,
-);
+// $foundation-palette: (
+//   primary: #F2E3DB,
+//   secondary: #41644A,
+//   success: #263A29,
+//   warning: #E86A33,
+//   alert: #cc4b37,
+// );
+
+.primary{color: #41644A; }
+.secondary{color: #263A29}
+// .success: #263A29,
+// .warning: #E86A33,
+// .alert: #cc4b37,
 
 *,
 *::before,
