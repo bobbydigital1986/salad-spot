@@ -12,7 +12,7 @@ const HomePage = (props) => {
             </h4>
         </div>
         <div>
-            <p className="developed-by-text">
+            <p>
                 Developed by Jess, Bob, Todd, Tim
             </p>
         </div>

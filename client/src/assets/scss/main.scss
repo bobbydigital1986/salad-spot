@@ -19,16 +19,30 @@ body {
   box-sizing: border-box;
 }
 
+
 :root {
   -moz-tab-size: 4;
   tab-size: 4;
 }
 
-.header{
+h1, h2, h3, h4, h5, h6{
   font-family: 'Lilita One', cursive;
+}
+
+p{
+  font-family: 'Ubuntu', sans-serif;
+}
+
+a{
+  font-family: 'Montserrat', sans-serif;
 }
 
 .developed-by-text{
   font-family: lato, sans-serif;
   font-size: .5em;
+}
+
+.navbar{
+  background-color: #E86A33;
+  color: #41644A;
 }
