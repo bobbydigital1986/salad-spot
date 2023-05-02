@@ -25,7 +25,7 @@ const SaladListComponent = (props) => {
 
     const saladItems = salads.map((salad)=> {
         return (
-            salad.name
+            <li>salad.name</li>
         )
     })
 

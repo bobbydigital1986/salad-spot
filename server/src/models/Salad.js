@@ -1,7 +1,7 @@
 const Model = require("./Model.js")
 
 
-class Salad extends (Model){
+class Salad extends Model{
     static get tableName() {
         return "salads"
     }
