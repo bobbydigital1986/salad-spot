@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import SaladTile from "./SaladTile"
+
 
 const SaladListComponent = (props) => {
 
@@ -24,8 +26,12 @@ const SaladListComponent = (props) => {
     }, [])
 
     const saladItems = salads.map((salad)=> {
+        
         return (
-            <li>salad.name</li>
+            <SaladTile
+            key={salad.id}
+            salad={salad}
+            />
         )
     })
 
