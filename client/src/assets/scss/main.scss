@@ -3,12 +3,15 @@
 @include foundation-everything;
 // place global css here
 
+body {
+  background-color: #F2E3DB;
+}
+
 .background{background-color: #F2E3DB}
-.primary{color: #41644A; }
+.primary{color: #41644A }
 .secondary{color: #263A29}
-// .success: #263A29,
 .warning{background-color: #E86A33}
-// .alert: #cc4b37,
+.alert{color: #cc4b37}
 
 *,
 *::before,
@@ -21,4 +24,11 @@
   tab-size: 4;
 }
 
+.header{
+  font-family: 'Lilita One', cursive;
+}
 
+.developed-by-text{
+  font-family: lato, sans-serif;
+  font-size: .5em;
+}

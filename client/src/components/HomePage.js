@@ -2,16 +2,21 @@ import React from "react";
 
 const HomePage = (props) => {
     return(
-        <div className="primary background">
-        <h2 className="secondary">Welcome to the Homepage</h2>
+        <div className="primary">
 
-        <p>
-            Rate my salad!
-        </p>
+            <h2 className="secondary header">Welcome to the Homepage</h2>
+        
+        <div>
+            <h4 className="secondary header">
+                Rate my salad!
+            </h4>
+        </div>
+        <div>
+            <p className="developed-by-text">
+                Developed by Jess, Bob, Todd, Tim
+            </p>
+        </div>
 
-        <p>
-            Developed by Jess, Bob, Todd, Tim
-        </p>
         </div>
     )
 }
