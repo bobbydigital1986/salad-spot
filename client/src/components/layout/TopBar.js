@@ -31,7 +31,10 @@ const TopBar = ({ user }) => {
             <h1>Salad Theory</h1>
           </li>
           <li className="menu-text">
-            <Link to="/">Salads</Link>
+            <Link to="/salads">Salads</Link>
+          </li>
+          <li className="menu-text">
+            <Link to="/salads/new">Post a salad!</Link>
           </li>
           <li className="menu-text">
             <Link to="/home">Home</Link>

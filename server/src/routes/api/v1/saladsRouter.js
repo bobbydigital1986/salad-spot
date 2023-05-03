@@ -1,11 +1,10 @@
 import express from "express"
 import objection from "objection"
 import { ValidationError } from "objection"
-
-import { Salad } from "../../../models/index.js"
+import cleanUserInput from "../../../services/cleanUserInput.js"
+import { User } from "../../../models/index.js"
 
 const saladsRouter = new express.Router()
-
 
 saladsRouter.get("/", async (req, res) => {
     try {
@@ -17,15 +16,19 @@ saladsRouter.get("/", async (req, res) => {
 })
 
 saladsRouter.post("/new", async (req, res)=> {
+    const { name, description } = req.body
+    const { id } = req.user
     try {
-        const salads = await Salad.query()
-        return res.status(201).json({ salads: salads }) 
+        const postingUser = await User.query().findById(id)
+        const cleanSalad = cleanUserInput({ name, description })
+        const newSalad = await postingUser.$relatedQuery("salads").insertAndFetch(cleanSalad)
+
+        return res.status(201).json({ salads: newSalad }) 
     } catch(error) {
-        console.log(error)
         if (error instanceof ValidationError) {
-            res.status(422).json({ errors: error.data })
+            res.status(422).json({ errors: error })
         } else {
-        return res.status(500).json({ errors: error })
+            return res.status(500).json({ errors: error })
         }
     }
 })

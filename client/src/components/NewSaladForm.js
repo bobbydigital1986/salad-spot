@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import ErrorList from "../components/layout/ErrorList"
+import translateServerErrors from "../../src/services/translateServerErrors"
+import { Redirect } from "react-router-dom"
 
 const NewSaladForm = (props) => {
 
+    const [errors, setErrors] = useState([])
+    const [shouldRedirect, setShouldRedirect] = useState(false)
     const [newSalad, setNewSalad] = useState({
         name: "",
         description: ""
@@ -17,7 +22,6 @@ const NewSaladForm = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         postSalad(newSalad)
-        clearForm()
     }
 
     const postSalad = async (newSaladData) => {
@@ -30,9 +34,9 @@ const NewSaladForm = (props) => {
                 body: JSON.stringify(newSaladData)
             })
             if (!response.ok) {
-                if (response.status === 422) {
+                if (response.status == 422) {
                     const errorBody = await response.json()
-                    const newErrors = translateServerErrors(errorBody.errors)
+                    const newErrors = translateServerErrors(errorBody.errors.data)
                     return setErrors(newErrors)
                 } else {
                     const errorMessage = `${response.status} (${response.statusText})`
@@ -40,18 +44,23 @@ const NewSaladForm = (props) => {
                 }
             } else {
                 const responseBody = await response.json()
-                const updatedSalads = salads.name.concat(responseBody.salads)
-                setErrors([])
-                setNewSalad({salads: updatedSalads})
+                const updatedSalad = responseBody.salads
+                setNewSalad({ id: updatedSalad.id })
+                setShouldRedirect(true)
             }
         } catch (error) {
             console.error(`Error in fetch: ${error.message}`)
         }
     }
 
+    if (shouldRedirect) {
+        return <Redirect push to={`/salads/${newSalad.id}`}/>
+    }
+
     return (
         <>
         <h1>Add a New Salad</h1>
+            <ErrorList errors={errors}/>
             <form onSubmit={handleSubmit}>
                 <label>
                     Name:
