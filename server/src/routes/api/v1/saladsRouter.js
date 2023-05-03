@@ -14,5 +14,4 @@ saladsRouter.get("/", async (req, res) => {
     }
 })
 
-
 export default saladsRouter;
