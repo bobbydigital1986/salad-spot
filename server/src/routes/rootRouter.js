@@ -10,6 +10,4 @@ rootRouter.use("/api/v1/user-sessions", userSessionsRouter);
 rootRouter.use("/api/v1/users", usersRouter);
 rootRouter.use("/api/v1/salads", saladsRouter);
 
-
-
 export default rootRouter;
