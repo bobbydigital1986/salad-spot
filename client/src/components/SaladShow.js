@@ -25,13 +25,16 @@ const SaladShow = (props) =>{
 
     let descriptionSection
     if (salad.description) {
-        descriptionSection = <p>{salad.description}</p>
+        descriptionSection = <p>Salad description: {salad.description}</p>
     }
 
     return (
         <>
+            <h1>Rate my Salad</h1>
             <h2>{salad.name}</h2>
             {descriptionSection}
         </>
     )
 }
+
+export default SaladShow
