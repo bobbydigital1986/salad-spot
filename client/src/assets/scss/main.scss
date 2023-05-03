@@ -52,7 +52,11 @@ a {
   font-size: .5em;
 }
 
-.navbar{
+.navbar {
   background-color: $navbar-background-color;
   color: $navbar-text-color;
+}
+
+img {
+  height: 80px;
 }
