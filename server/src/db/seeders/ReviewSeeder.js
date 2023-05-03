@@ -11,19 +11,16 @@ class ReviewSeeder {
 
         const reviewsData = [
             {
-                user: "John",
                 body: "Not enough fruit in this salad",
                 saladId: cobb.id,
                 userId: john.id
             },
             {
-                user: "Sally",
                 body: "Needs more hot sauce",
                 saladId: fruit.id,
                 userId: sally.id
             },
             {
-                user: "Mary",
                 body: "This looks like a bird nest",
                 saladId: fruit.id,
                 userId: mary.id

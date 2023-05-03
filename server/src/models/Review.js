@@ -32,9 +32,8 @@ class Review extends Model {
     static get jsonSchema() {
         return {
             type: "object",
-            required: ["user", 'body'],
+            required: ["body"],
             properties: {
-                user: { type: "string" },
                 body: { type: "string" }
             }
         }
