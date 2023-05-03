@@ -1,14 +1,62 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
-// place global css here
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Lilita+One&family=Montserrat:wght@200;300;400;500;900&family=Ubuntu:wght@300;400;500&display=swap");
+
+
+//Color palette
+$navbar-text-color:#41644A;
+$main-text-color: #263A29;
+$navbar-background-color: #E86A33;
+$main-background-color: #F2E3DB;
+
+body {
+  background-color: $main-background-color;
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+
 :root {
   -moz-tab-size: 4;
   tab-size: 4;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lilita One', cursive;
+  color: $main-text-color
+}
+
+.background {
+  background-color: $main-background-color
+}
+
+.form-standard {
+  padding: 5% 30%
+}
+
+p {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+a {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.developed-by-text{
+  font-family: lato, sans-serif;
+  font-size: .5em;
+}
+
+.navbar {
+  background-color: $navbar-background-color;
+  color: $navbar-text-color;
+}
+
+img {
+  height: 80px;
 }
