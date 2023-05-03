@@ -14,5 +14,16 @@ saladsRouter.get("/", async (req, res) => {
     }
 })
 
+saladsRouter.get("/:id", async (req, res) => {
+    const saladId = req.params.id
+    
+    try {
+        const showSalad = await Salad.query().findById(saladId)
+        return res.status(200).json({ salad: showSalads })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ errors: error })
+    }
+})
 
 export default saladsRouter;
