@@ -34,7 +34,7 @@ const NewReviewForm = ({ postReview }) => {
                         type="text"
                         name="body"
                         onChange={handleChange}
-                        value={newReview.review}
+                        value={newReview.body}
                     />
                 </label>
                 <div className="button-group">

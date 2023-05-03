@@ -48,7 +48,7 @@ const SaladShow = (props) =>{
                 }
             } else {
                 const body = await response.json()
-                const updatedReviews = salad.reviews.concat(body.review)
+                const updatedReviews = salad.reviews.concat(body.body)
                 setErrors([])
                 setSalad({...salad, reviews: updatedReviews})
             }

@@ -18,9 +18,9 @@ class Review extends Model {
                 }
             },
 
-            user: {
+            users: {
                 relation: Model.HasManyRelation,
-                modelClass : User,
+                modelClass: User,
                 join: {
                     from: "reviews.userId",
                     to: "users.id"
