@@ -1,8 +1,9 @@
 import React, {useState, useEffect } from "react";
-import newReviewForm from "./NewReviewForm";
+import NewReviewForm from "./NewReviewForm";
 
 const SaladShow = (props) =>{
     const [salad, setSalad] = useState({
+        reviews: []
     })
     const [errors, setErrors] = useState([])
     
@@ -29,7 +30,7 @@ const SaladShow = (props) =>{
     const postReview = async (newReview) => {
         try {
             const saladId = props.match.params.id
-            const response = await fetch(`/api/v1/salads/${saladId}/reviews`, {
+            const response = await fetch(`/api/v1/salads/${saladId}`, {
                 method: "POST",
                 headers: new Headers({
                     "Content-Type": "application/json"
@@ -68,7 +69,7 @@ const SaladShow = (props) =>{
             <h2>{salad.name}</h2>
             {descriptionSection}
             <h3>Reviews</h3>
-            <newReviewForm postReview={postReview} />
+            <NewReviewForm postReview={postReview} />
         </>
     )
 }

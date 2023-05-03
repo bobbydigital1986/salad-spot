@@ -6,6 +6,7 @@ import { Review } from '../../../models/index.js'
 const saladReviewsRouter = new express.Router({ mergeParams: true })
 
 saladReviewsRouter.post('/', async (req, res) => {
+    debugger
     const { body } = req
     const saladIdParams = req.params.saladId
     const formDataWithId = { ...body, saladId: saladIdParams }

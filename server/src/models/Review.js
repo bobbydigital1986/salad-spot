@@ -5,13 +5,37 @@ class Review extends Model {
         return "reviews"
     }
 
+    static get relationMappings() {
+        const { Salad, User } = require("./index.js")
+
+        return {
+            salad: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: Salad,
+                join: {
+                    from: "reviews.saladId",
+                    to: "salads.id"
+                }
+            },
+
+            user: {
+                relation: Model.HasManyRelation,
+                modelClass : User,
+                join: {
+                    from: "reviews.userId",
+                    to: "users.id"
+                }
+            }
+        }
+    }
+
     static get jsonSchema() {
         return {
             type: "object",
-            required: ["review", 'name'],
+            required: ["user", 'body'],
             properties: {
-                name: { type: "string" },
-                review: { type: "string" }
+                user: { type: "string" },
+                body: { type: "string" }
             }
         }
     }

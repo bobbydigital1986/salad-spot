@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-const newReviewForm = ({ postReview }) => {
+const NewReviewForm = ({ postReview }) => {
     const [newReview, setNewReview] = useState({
-        name: "",
-        review: ""
+        user: "",
+        body: ""
     })
 
     const handleChange = (event) => {
@@ -21,8 +21,8 @@ const newReviewForm = ({ postReview }) => {
 
     const clearForm = () => {
         setNewReview({
-            name: "",
-            review: ""
+            user: "",
+            body: ""
         })
     }
 
@@ -31,10 +31,10 @@ const newReviewForm = ({ postReview }) => {
             <h2>Leave a Review</h2>
             <form onSubmit={handleSubmit}>
                 <label>
-                    Name:
+                    User:
                     <input
                         type="text"
-                        name="name"
+                        name="user"
                         onChange={handleChange}
                         value={newReview.name}
                     />
@@ -44,7 +44,7 @@ const newReviewForm = ({ postReview }) => {
                     Review:
                     <input
                         type="text"
-                        name="review"
+                        name="body"
                         onChange={handleChange}
                         value={newReview.review}
                     />
@@ -58,4 +58,4 @@ const newReviewForm = ({ postReview }) => {
     )
 }
 
-export default newReviewForm
+export default NewReviewForm
