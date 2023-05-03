@@ -1,5 +1,6 @@
 import express from "express"
 import objection from "objection"
+import saladReviewsRouter from "./saladReviewsRouter.js"
 
 import { Salad } from "../../../models/index.js"
 
@@ -27,5 +28,6 @@ saladsRouter.get("/:id", async (req, res) => {
     }
 })
 
+saladsRouter.use('/:saladId/reviews', saladReviewsRouter)
 
 export default saladsRouter;
