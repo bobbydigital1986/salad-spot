@@ -1,10 +1,19 @@
 /* eslint-disable no-console */
 import { connection } from "../boot.js"
+import Salad from "../models/Salad.js"
+import usersRouter from "../routes/api/v1/usersRouter.js"
+import User from "../models/User.js"
+import UserSeeder from "./seeders/UserSeeder.js"
+import SaladSeeder from "./seeders/SaladSeeder.js"
 
 class Seeder {
   static async seed() {
-    // include individual seed commands here
+    console.log('seeding users...')
+    await UserSeeder.seed()
 
+    console.log('seeding salads...')
+    await SaladSeeder.seed()
+    
     console.log("Done!")
     await connection.destroy()
   }
