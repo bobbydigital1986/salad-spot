@@ -28,9 +28,7 @@ class Salad extends Model{
                 name: { type: "string" },
                 description: { type: "string" }
             }
-
         }
-
     }
 }
 

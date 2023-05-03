@@ -34,13 +34,11 @@ const SaladListComponent = (props) => {
     })
 
     return (
-        <div>
+        <>
             <h1>My Salad List</h1>
             <ul>{saladItems}</ul>
-        </div>
+        </>
     )
-    
 }
-
 
 export default SaladListComponent
