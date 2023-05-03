@@ -1,17 +1,14 @@
 import express from 'express'
 import objection from 'objection'
 const{ ValidationError } = objection
-import { Review } from '../../../models.index.js'
-
-import cleanUserInput from '../../../services/cleanUserInput.js'
+import { Review } from '../../../models/index.js'
 
 const saladReviewsRouter = new express.Router({ mergeParams: true })
 
 saladReviewsRouter.post('/', async (req, res) => {
     const { body } = req
-    const formInput = cleanUserInput(body)
     const saladIdParams = req.params.saladId
-    const formDataWithId = { ...formInput, saladId: saladIdParams }
+    const formDataWithId = { ...body, saladId: saladIdParams }
     try {
         const newReview = await Review.query().insertAndFetch(formDataWithId)
         return res.status(201).json({ review: newReview })

@@ -20,7 +20,7 @@ saladsRouter.get("/:id", async (req, res) => {
     
     try {
         const showSalad = await Salad.query().findById(saladId)
-        return res.status(200).json({ salad: showSalads })
+        return res.status(200).json({ salad: showSalad })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ errors: error })

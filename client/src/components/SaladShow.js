@@ -3,7 +3,6 @@ import newReviewForm from "./NewReviewForm";
 
 const SaladShow = (props) =>{
     const [salad, setSalad] = useState({
-        reviews: []
     })
     const [errors, setErrors] = useState([])
     
