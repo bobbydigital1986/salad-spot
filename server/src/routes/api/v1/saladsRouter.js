@@ -4,7 +4,6 @@ import saladReviewsRouter from "./saladReviewsRouter.js"
 
 import { Salad } from "../../../models/index.js"
 
-
 const saladsRouter = new express.Router()
 
 saladsRouter.get("/", async (req, res) => {
@@ -20,7 +19,7 @@ saladsRouter.get("/:id", async (req, res) => {
     const saladId = req.params.id
     
     try {
-        const showSalads = await Salad.query().findById(saladId)
+        const showSalad = await Salad.query().findById(saladId)
         return res.status(200).json({ salad: showSalads })
     } catch (error) {
         console.log(error)
