@@ -8,7 +8,7 @@ const SaladTile = (props) => {
         <>
             <li><Link to={`/salads/${id}`}>{name}</Link></li>
             <p>{description}</p>
-            <h4 className='submitted-by'>Submittd by {user}</h4>
+            <h4 className='submitted-by'>Submitted by {user}</h4>
         </>
     )
 }
