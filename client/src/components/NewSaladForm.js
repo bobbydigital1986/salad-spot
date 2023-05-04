@@ -45,7 +45,7 @@ const NewSaladForm = (props) => {
             } else {
                 const responseBody = await response.json()
                 const updatedSalad = responseBody.salads
-                setNewSalad({ id: updatedSalad.id })
+                setNewSalad({ ...newSalad, id: updatedSalad.id })
                 setShouldRedirect(true)
             }
         } catch (error) {
@@ -59,7 +59,7 @@ const NewSaladForm = (props) => {
 
     return (
         <>
-        <h1>Add a New Salad</h1>
+            <h1>Add a New Salad</h1>
             <ErrorList errors={errors}/>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -70,6 +70,8 @@ const NewSaladForm = (props) => {
                             onChange={handleInputChange}
                             value={newSalad.name}
                         />
+                </label>
+                <label>
                     Description:
                         <input
                             type="text"

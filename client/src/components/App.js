@@ -27,11 +27,18 @@ const App = (props) => {
     fetchCurrentUser()
   }, [])
 
+  let newPostComponent
+  if (currentUser) {
+    newPostComponent = NewSaladForm
+  } else {
+    newPostComponent = RegistrationForm
+  }
+
   return (
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <Route exact path="/salads/new" component={NewSaladForm}></Route>
+        <Route exact path="/salads/new" component={newPostComponent}></Route>
         <Route exact path="/salads" component={SaladListComponent}></Route>
         <Route exact path="/salads/:id" component={SaladShow} />
         <Route exact path="/users/new" component={RegistrationForm} />

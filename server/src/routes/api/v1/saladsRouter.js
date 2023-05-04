@@ -2,7 +2,7 @@ import express from "express"
 import objection from "objection"
 import { ValidationError } from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
-import { User } from "../../../models/index.js"
+import { User, Salad } from "../../../models/index.js"
 
 const saladsRouter = new express.Router()
 
@@ -35,10 +35,9 @@ saladsRouter.post("/new", async (req, res)=> {
 
 saladsRouter.get("/:id", async (req, res) => {
     const saladId = req.params.id
-    
     try {
         const showSalad = await Salad.query().findById(saladId)
-        return res.status(200).json({ salad: showSalads })
+        return res.status(200).json({ salad: showSalad })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ errors: error })
