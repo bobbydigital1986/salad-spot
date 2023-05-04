@@ -14,7 +14,6 @@ saladsRouter.get("/", async (req, res) => {
             salad.user = salad.user.username
             return salad
         }))
-        console.log(salads)
         return res.status(200).json({ salads: salads })
     } catch (error) {
         console.log(error)
