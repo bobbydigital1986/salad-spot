@@ -16,7 +16,7 @@ const RegistrationForm = () => {
 
   const validateInput = (payload) => {
     setErrors({});
-    const { email, password, passwordConfirmation } = payload;
+    const { username, email, password, passwordConfirmation } = payload;
     const emailRegexp = config.validation.email.regexp;
     let newErrors = {};
 
@@ -25,6 +25,13 @@ const RegistrationForm = () => {
         ...newErrors,
         email: "is invalid",
       };
+    }
+
+    if (username.trim() == '') {
+      newErrors = {
+        ...newErrors,
+        username: "is required",
+      }
     }
 
     if (password.trim() == "") {

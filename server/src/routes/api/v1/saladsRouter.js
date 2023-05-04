@@ -6,7 +6,6 @@ import { Salad } from "../../../models/index.js"
 const saladsRouter = new express.Router()
 
 saladsRouter.get("/", async (req, res) => {
-    
     try {
         const saladsSansUsers = await Salad.query()
         const salads = await Promise.all(saladsSansUsers.map( async (salad) => {
