@@ -1,4 +1,4 @@
-import express, { response } from "express"
+import express from "express"
 import objection from "objection"
 const { ValidationError } = objection
 import { Review } from "../../../models/index.js"
