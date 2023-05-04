@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 import SaladListComponent from "./SaladListComponent";
 import SaladShow from "./SaladShow";
-
+import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
 import getCurrentUser from "../services/getCurrentUser";
 import "../assets/scss/main.scss";
 import RegistrationForm from "./registration/RegistrationForm";
@@ -27,19 +27,12 @@ const App = (props) => {
     fetchCurrentUser()
   }, [])
 
-  let newPostComponent
-  if (currentUser) {
-    newPostComponent = NewSaladForm
-  } else {
-    newPostComponent = RegistrationForm
-  }
-
   return (
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <Route exact path="/salads/new" component={newPostComponent}></Route>
-        <Route exact path="/salads" component={SaladListComponent}></Route>
+        <AuthenticatedRoute exact path="/salads/new" component={NewSaladForm} user={currentUser}/>
+        <Route exact path="/salads" component={SaladListComponent}/>
         <Route exact path="/salads/:id" component={SaladShow} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
