@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 import SaladListComponent from "./SaladListComponent";
+import SaladShow from "./SaladShow";
 
 import getCurrentUser from "../services/getCurrentUser";
 import "../assets/scss/main.scss";
@@ -32,6 +33,7 @@ const App = (props) => {
       <Switch>
         <Route exact path="/salads/new" component={NewSaladForm}></Route>
         <Route exact path="/salads" component={SaladListComponent}></Route>
+        <Route exact path="/salads/:id" component={SaladShow} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/home" component={HomePage} />
