@@ -19,7 +19,7 @@ class Salad extends Model{
             },
 
             reviews: {
-                relation: Model.BelongsToOneRelation,
+                relation: Model.HasManyRelation,
                 modelClass: Review,
                 join: {
                     from: "salads.id",
