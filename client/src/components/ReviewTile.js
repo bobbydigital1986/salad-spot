@@ -1,6 +1,6 @@
 import React from "react"
 
-const ReviewTile = ({ userName, name, reviewBody }) => {
+const ReviewTile = ({ name, reviewBody }) => {
 
     return(
         <>

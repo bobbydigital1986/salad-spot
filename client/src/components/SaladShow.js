@@ -1,6 +1,5 @@
 import React, {useState, useEffect } from "react";
 import ReviewList from "./ReviewList";
-import SaladTile from "./SaladTile";
 
 const SaladShow = (props) =>{
     const [salad, setSalad] = useState({
@@ -38,7 +37,7 @@ const SaladShow = (props) =>{
                 throw(error)
             }
             const responseBody = await response.json()
-            setReview(responseBody.review)
+            setReviews(responseBody.review)
         }catch(error) {
             console.error(`Error in Fetch ${error.message}`)
         }
@@ -57,16 +56,15 @@ const SaladShow = (props) =>{
         descriptionSection = <p>Salad description: {salad.description}</p>
     }
 
+
+
     return (
         <>
             <h1>Rate my Salad</h1>
             <h2>{salad.name}</h2>
             {descriptionSection}
             <h4>Reviews</h4>
-            <ReviewList
-                reviews={reviews}
-                selectedSalads={selectedSalads}
-            />
+            {ReviewList}
         </>
     )
 }

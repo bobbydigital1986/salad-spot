@@ -27,6 +27,6 @@ saladsRouter.get("/:id", async (req, res) => {
     }
 })
 
-saladsRouter.use('/:saladId/reviews', saladReviewsRouter)
+saladsRouter.use('/:id/reviews', saladReviewsRouter)
 
 export default saladsRouter;
