@@ -20,6 +20,15 @@ const TopBar = ({ user }) => {
     </li>,
   ];
 
+  let newPostLink
+  if (user) {
+    newPostLink = (
+      <li className="menu-text">
+        <Link to="/salads/new">Post a salad!</Link>
+      </li>
+    )
+  }
+
   return (
     <div className="top-bar">
       <div className="top-bar-left">
@@ -31,8 +40,9 @@ const TopBar = ({ user }) => {
             <h1>Salad Theory</h1>
           </li>
           <li className="menu-text">
-            <Link to="/">Salads</Link>
+            <Link to="/salads">Salads</Link>
           </li>
+            {newPostLink}
           <li className="menu-text">
             <Link to="/home">Home</Link>
           </li>
