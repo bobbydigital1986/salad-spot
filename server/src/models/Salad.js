@@ -31,7 +31,7 @@ class Salad extends Model{
 
     static get jsonSchema() {
         return {
-            type: 'object',
+            type: "object",
             required: ["name"],
             properties: {
                 name: { type: "string" },
