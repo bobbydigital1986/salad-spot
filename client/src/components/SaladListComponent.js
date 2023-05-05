@@ -4,7 +4,6 @@ import SaladTile from "./SaladTile"
 const SaladListComponent = (props) => {
 
     const [salads, setSalads] = useState([])
-
     const getSalads = async() => {
         try{
             const response = await fetch("/api/v1/salads")

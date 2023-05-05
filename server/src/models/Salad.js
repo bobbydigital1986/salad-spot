@@ -6,7 +6,7 @@ class Salad extends Model{
     }
 
     static get relationMappings() {
-        const { User } = require("./index.js")
+        const { User, Review } = require("./index.js")
 
         return {
             user: {
@@ -16,13 +16,22 @@ class Salad extends Model{
                     from: "salads.userId", 
                     to: "users.id"
                 }
+            },
+
+            reviews: {
+                relation: Model.HasManyRelation,
+                modelClass: Review,
+                join: {
+                    from: "salads.id",
+                    to: "reviews.saladId"
+                }
             }
         }
     }
 
     static get jsonSchema() {
         return {
-            type: 'object',
+            type: "object",
             required: ["name"],
             properties: {
                 name: { type: "string" },

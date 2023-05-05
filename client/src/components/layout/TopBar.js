@@ -15,13 +15,22 @@ const TopBar = ({ user }) => {
   ];
 
   const authenticatedListItems = [
-    <li className="username">
+    <li className="username" key={user.id}>
       Hello {user?.username}!
     </li>,
     <li key="sign-out">
       <SignOutButton />
     </li>,
   ];
+
+  let newPostLink
+  if (user) {
+    newPostLink = (
+      <li className="menu-text">
+        <Link to="/salads/new">Post a salad!</Link>
+      </li>
+    )
+  }
 
   return (
     <div className="top-bar">
@@ -33,11 +42,12 @@ const TopBar = ({ user }) => {
           <li className="menu-text">
             <h1>Salad Theory</h1>
           </li>
-          <li className="username">
-            <Link to="/">Salads</Link>
-          </li>
-          <li className="username">
+          <li className="menu-text">
             <Link to="/home">Home</Link>
+          </li>
+            {newPostLink}
+          <li className="menu-text">
+            <Link to="/salads">Salads</Link>
           </li>
         </ul>
       </div>
