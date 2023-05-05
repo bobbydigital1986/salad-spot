@@ -11,8 +11,8 @@ saladsRouter.get("/", async (req, res) => {
     try {
         const saladsSansUsers = await Salad.query()
         const salads = await Promise.all(saladsSansUsers.map( async (salad) => {
-            salad.user = await salad.$relatedQuery("user")
-            salad.user = salad.user.username
+            const saladUser = await salad.$relatedQuery("user")
+            salad.user = saladUser.username
             return salad
         }))
         return res.status(200).json({ salads: salads })

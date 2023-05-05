@@ -81,3 +81,16 @@ img {
   font-size: .7em;
   color: $main-text-color;
 }
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1;
+  list-style-type: none;
+  width: auto;
+}
+
+.user-greeting {
+  color: #41644A;
+}
