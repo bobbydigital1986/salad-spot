@@ -1,5 +1,8 @@
 import React, {useState, useEffect } from "react";
 import ReviewList from "./ReviewList";
+import ReviewForm from "./ReviewForm";
+import getNiceDate from "../services/getNiceDate";
+
 
 const SaladShow = (props) =>{
     const [salad, setSalad] = useState({
@@ -7,8 +10,36 @@ const SaladShow = (props) =>{
         description: "",
         reviews: []
     })
-
+    const [errors, setErrors] = useState([])
     const [reviews, setReviews] = useState([])
+
+    const postReview = async (newReview) => {
+        try {
+            const saladId = props.match.params.id
+            const response = await fetch(`/api/v1/salads/${saladId}/reviews`, {
+                method: "POST",
+                headers: new Headers({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(newReview)
+            })
+            if (!response.ok) {
+                if(response.status === 422) {
+                    const body = await response.json()
+                    return setErrors(body.errors)
+                } else {
+                    const errorMessage = `${response.status} (${response.statusText})`
+                    const error = new Error(errorMessage)
+                    throw(error)
+                }
+            } else {
+                const body = await response.json()
+                getSalad()
+            }
+        } catch(error) {
+            console.error(`Error in Fetch ${error.message}`)
+        }
+    }
     
     const getSalad = async () => {
         try {
@@ -36,14 +67,17 @@ const SaladShow = (props) =>{
         descriptionSection = <p>Salad description: {salad.description}</p>
     }
 
+    const monthDay = getNiceDate(salad.createdAt)
+
+    console.log("salad", salad)
     return (
-        <>
-            <h1>Rate my Salad</h1>
-            <h2>{salad.name}</h2>
+        <div className="callout review-tile">
+            <h1>{salad.name}</h1>
+            {salad?.user?.email} {monthDay}
             {descriptionSection}
-            <h4>Reviews</h4>
+            <ReviewForm postReview={postReview} />
             <ReviewList reviews={reviews} />
-        </>
+        </div>
     )
 }
 

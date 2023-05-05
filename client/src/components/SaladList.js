@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import SaladTile from "./SaladTile"
 
-const SaladListComponent = (props) => {
+const SaladList = (props) => {
 
     const [salads, setSalads] = useState([])
     const getSalads = async() => {
@@ -40,4 +40,4 @@ const SaladListComponent = (props) => {
     )
 }
 
-export default SaladListComponent
+export default SaladList
