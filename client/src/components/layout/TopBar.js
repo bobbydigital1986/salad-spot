@@ -40,11 +40,11 @@ const TopBar = ({ user }) => {
             <h1>Salad Theory</h1>
           </li>
           <li className="menu-text">
-            <Link to="/salads">Salads</Link>
+            <Link to="/home">Home</Link>
           </li>
             {newPostLink}
           <li className="menu-text">
-            <Link to="/home">Home</Link>
+            <Link to="/salads">Salads</Link>
           </li>
         </ul>
       </div>

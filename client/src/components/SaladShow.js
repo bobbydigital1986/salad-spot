@@ -1,7 +1,14 @@
 import React, {useState, useEffect } from "react";
+import ReviewList from "./ReviewList";
 
 const SaladShow = (props) =>{
-    const [salad, setSalad] = useState({})
+    const [salad, setSalad] = useState({
+        name: "",
+        description: "",
+        reviews: []
+    })
+
+    const [reviews, setReviews] = useState([])
     
     const getSalad = async () => {
         try {
@@ -14,6 +21,7 @@ const SaladShow = (props) =>{
             }
             const responseBody = await response.json()
             setSalad(responseBody.salad)
+            setReviews(responseBody.salad.reviews)
         } catch(error) {
             console.error(`Error in Fetch ${error.message}`)
         }
@@ -33,6 +41,8 @@ const SaladShow = (props) =>{
             <h1>Rate my Salad</h1>
             <h2>{salad.name}</h2>
             {descriptionSection}
+            <h4>Reviews</h4>
+            <ReviewList reviews={reviews} />
         </>
     )
 }

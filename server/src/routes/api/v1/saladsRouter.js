@@ -1,4 +1,5 @@
 import express from "express"
+import saladReviewsRouter from "./saladReviewsRouter.js"
 import objection from "objection"
 import { ValidationError } from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
@@ -37,11 +38,14 @@ saladsRouter.get("/:id", async (req, res) => {
     const saladId = req.params.id
     try {
         const showSalad = await Salad.query().findById(saladId)
+        showSalad.reviews = await showSalad.$relatedQuery("reviews")
         return res.status(200).json({ salad: showSalad })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ errors: error })
     }
 })
+
+saladsRouter.use('/:id/reviews', saladReviewsRouter)
 
 export default saladsRouter;
