@@ -1,5 +1,5 @@
 import express from "express"
-import saladReviewsRouter from "./saladReviewsRouter.js"
+// import saladReviewsRouter from "./saladReviewsRouter.js"
 import objection from "objection"
 import { ValidationError } from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
@@ -46,6 +46,6 @@ saladsRouter.get("/:id", async (req, res) => {
     }
 })
 
-saladsRouter.use('/:id/reviews', saladReviewsRouter)
+// saladsRouter.use('/:id/reviews', saladReviewsRouter)
 
 export default saladsRouter;
