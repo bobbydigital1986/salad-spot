@@ -1,35 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
 
 const TopBar = ({ user }) => {
-  const unauthenticatedListItems = [
-    <li key="sign-in">
-      <Link to="/user-sessions/new">Sign In</Link>
-    </li>,
-    <li key="sign-up">
-      <Link to="/users/new" className="button">
-        Sign Up
-      </Link>
-    </li>,
-  ];
+  const [showDropDown, setShowDropDown] = useState(false);
 
-  const authenticatedListItems = [
-    <li className="username" key={user.id}>
-      Hello {user?.username}!
-    </li>,
-    <li key="sign-out">
-      <SignOutButton />
-    </li>,
-  ];
+  const toggleDropDown = () => {
+    setShowDropDown(!showDropDown);
+  };
 
-  let newPostLink
+  let newPostLink;
   if (user) {
     newPostLink = (
       <li className="menu-text">
         <Link to="/salads/new">Post a salad!</Link>
       </li>
-    )
+    );
   }
 
   return (
@@ -45,14 +31,46 @@ const TopBar = ({ user }) => {
           <li className="menu-text">
             <Link to="/home">Home</Link>
           </li>
-            {newPostLink}
+          {newPostLink}
           <li className="menu-text">
             <Link to="/salads">Salads</Link>
           </li>
         </ul>
       </div>
       <div className="top-bar-right">
-        <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
+        {user ? (
+          <ul className="dropdown menu">
+            <li>
+              <button
+                onClick={toggleDropDown}
+                className="username user-greeting"
+              >
+                Hello {user?.username}!
+              </button>
+              {showDropDown && (
+                <ul className="dropdown-menu">
+                  <li className="menu-text">
+                    <Link to="/profile">Profile</Link>
+                  </li>
+                  <li>
+                    <a key="sign-out"> <SignOutButton /></a>
+                  </li>
+                </ul>
+              )}
+            </li>
+          </ul>
+        ) : (
+          <ul className="menu">
+            <li className="menu-text">
+              <Link to="/user-sessions/new">Sign In</Link>
+            </li>
+            <li className="menu-text">
+              <Link to="/users/new">
+                Sign Up
+              </Link>
+            </li>
+          </ul>
+        )}
       </div>
     </div>
   );
