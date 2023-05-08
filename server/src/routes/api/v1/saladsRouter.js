@@ -1,5 +1,4 @@
 import express from "express"
-import saladReviewsRouter from "./saladReviewsRouter.js"
 import objection from "objection"
 import { ValidationError } from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
@@ -57,7 +56,5 @@ saladsRouter.get("/:id", async (req, res) => {
         return res.status(500).json({ errors: error })
     }
 })
-
-saladsRouter.use('/:id/reviews', saladReviewsRouter)
 
 export default saladsRouter;
