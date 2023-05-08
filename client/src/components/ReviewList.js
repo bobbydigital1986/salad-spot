@@ -3,7 +3,6 @@ import ReviewTile from "./ReviewTile";
 
 const ReviewList = (props) => {
     const reviewList = props.reviews.map((review)=>{
-        console.log(review)
         return(
             <ReviewTile 
                 key={review.id}

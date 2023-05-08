@@ -10,7 +10,6 @@ saladReviewsRouter.post('/', async (req, res) => {
     const saladIdParams = req.params.id
     const reviewerId = req.user.id
     const formDataWithId = { ...body, saladId: saladIdParams, userId: reviewerId }
-    console.log(formDataWithId)
 
     try {
         const newReview = await Review.query().insertAndFetch(formDataWithId)

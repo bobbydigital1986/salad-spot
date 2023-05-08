@@ -69,7 +69,6 @@ const SaladShow = (props) =>{
 
     const monthDay = getNiceDate(salad.createdAt)
 
-    console.log("salad", salad)
     return (
         <div className="callout review-tile">
             <h1>{salad.name}</h1>

@@ -2,7 +2,6 @@ import React from "react"
 import getNiceDate from "../services/getNiceDate"
 
 const ReviewTile = ({ user, body, createdAt }) => {
-    
     const monthDay = getNiceDate(createdAt)
     
     return( 
