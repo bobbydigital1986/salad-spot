@@ -11,7 +11,7 @@ import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import HomePage from "./HomePage";
 import NewSaladForm from "./NewSaladForm"
-import UserProfilePage from "./UserProfilePage";
+import UserProfilePage from "./UserProfilePage"
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
