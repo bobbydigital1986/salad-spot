@@ -17,7 +17,6 @@ saladsRouter.get("/", async (req, res) => {
         }))
         return res.status(200).json({ salads: salads })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ errors: error })
     }
 })

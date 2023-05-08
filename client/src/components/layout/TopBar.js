@@ -28,7 +28,7 @@ const TopBar = ({ user }) => {
           <li className="menu-text">
             <h1>Salad Theory</h1>
           </li>
-          <li className="username">
+          <li className="menu-text">
             <Link to="/home">Home</Link>
           </li>
           {newPostLink}
