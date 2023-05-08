@@ -35,7 +35,8 @@ const SaladShow = (props) =>{
                 }
             } else {
                 const body = await response.json()
-                setReviews([body.body, ...reviews])
+                setErrors([])
+                return setReviews([body.body, ...reviews])
             }
         } catch(error) {
             console.error(`Error in Fetch ${error.message}`)
