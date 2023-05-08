@@ -44,11 +44,8 @@ saladsRouter.get("/:id", async (req, res) => {
     try {
         const showSalad = await Salad.query().findById(saladId)
         showSalad.user = await showSalad.$relatedQuery("user")
-        const reviews = await showSalad.$relatedQuery("reviews")
-        const reviewsSorted = reviews.sort((b,a) => {
-            return Date.parse(a.createdAt) - Date.parse(b.createdAt)
-        })
-        const reviewsWithUsers = await Promise.all(reviewsSorted.map(async(review) => {
+        const reviews = await showSalad.$relatedQuery("reviews").orderBy("createdAt", "desc")
+        const reviewsWithUsers = await Promise.all(reviews.map(async(review) => {
             review.user = await review.$relatedQuery("user")
             return review
         }))
