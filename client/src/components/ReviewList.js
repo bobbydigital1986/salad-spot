@@ -6,15 +6,17 @@ const ReviewList = (props) => {
         return(
             <ReviewTile 
                 key={review.id}
-                reviewSaladId={review.saladId}
                 body={review.body}
+                createdAt={review.createdAt}
+                user={review.user}
             />
         )   
     })
     return(
-        <>
+        <div className="callout review-tile">
+            <h4>Reviews</h4>
             {reviewList}
-        </>
+        </div>
     )
 }
 
