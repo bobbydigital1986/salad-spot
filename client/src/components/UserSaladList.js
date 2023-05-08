@@ -7,7 +7,7 @@ const UserSaladList = (props) => {
     
     const getUserSalads = async () => {
         try {
-            const response = await fetch("/api/v1/userActivity")
+            const response = await fetch("/api/v1/users")
             if(!response.ok) {
                 const errorMessage = `${response.status} (${response.statusText})`
                 const error = new Error(errorMessage)

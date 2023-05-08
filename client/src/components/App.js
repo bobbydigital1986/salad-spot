@@ -38,7 +38,7 @@ const App = (props) => {
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/home" component={HomePage} />
-        <Route exact path="/profile" component={UserProfilePage} />
+        <AuthenticatedRoute exact path="/profile" component={UserProfilePage} user={currentUser}/>
       </Switch>
     </Router>
   );
