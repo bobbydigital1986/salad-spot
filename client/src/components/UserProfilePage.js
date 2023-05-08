@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import UserSaladList from "./UserSaladList"
 
 const UserProfilePage = (props) => {
     const [user, setUser] = useState([])
@@ -27,6 +28,7 @@ const UserProfilePage = (props) => {
                 <h4>Username: {user.username}</h4>
                 <h4>Email: {user.email}</h4>
             <h2>Salads Posted:</h2>
+                <UserSaladList />            
         </>
     )
 }
