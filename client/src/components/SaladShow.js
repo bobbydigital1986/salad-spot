@@ -73,7 +73,7 @@ const SaladShow = (props) =>{
     return (
         <div className="callout review-tile">
             <h1>{salad.name}</h1>
-            {salad?.user?.email} {monthDay}
+            {salad?.user?.username} {monthDay}
             {descriptionSection}
             <ReviewForm postReview={postReview} />
             <ReviewList reviews={reviews} />

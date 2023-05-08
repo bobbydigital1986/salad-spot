@@ -6,17 +6,17 @@ class UserSeeder {
             {
                 username: "JohnDoe22",
                 email: "johnDoe22@email.com",
-                password: "12345"
+                cryptedPassword: "12345"
             },
             { 
                 username: "SallySeashell",
                 email: "sallyseashell@email.com", 
-                password: "54321" 
+                cryptedPassword: "54321" 
             },
             { 
                 username: "Mary301",
                 email: "Mary301@email.com", 
-                password: "24689" 
+                cryptedPassword: "24689" 
             }
         ]
         for (const singleUserData of usersData) {

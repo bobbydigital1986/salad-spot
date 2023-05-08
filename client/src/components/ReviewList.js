@@ -21,9 +21,4 @@ const ReviewList = (props) => {
     )
 }
 
-// id={review.id}
-// body={review.body}
-// userEmail={review.user.email}
-// createdAt={review.createdAt}
-
 export default ReviewList
