@@ -15,6 +15,9 @@ const TopBar = ({ user }) => {
   ];
 
   const authenticatedListItems = [
+    <li className="username" key={user.id}>
+      Hello {user?.username}!
+    </li>,
     <li key="sign-out">
       <SignOutButton />
     </li>,
@@ -36,7 +39,7 @@ const TopBar = ({ user }) => {
           <li>
             <img src="https://cdn-icons-png.flaticon.com/512/3768/3768493.png" />
           </li>
-          <li>
+          <li className="menu-text">
             <h1>Salad Theory</h1>
           </li>
           <li className="menu-text">
