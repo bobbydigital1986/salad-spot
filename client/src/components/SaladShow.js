@@ -67,6 +67,13 @@ const SaladShow = (props) =>{
         descriptionSection = <p>Salad description: {salad.description}</p>
     }
 
+    let reviewForm
+    if (props.user) { 
+        reviewForm = (
+            <ReviewForm postReview={postReview} />
+        )
+    }
+
     const monthDay = getNiceDate(salad.createdAt)
 
     return (
@@ -74,7 +81,7 @@ const SaladShow = (props) =>{
             <h1>{salad.name}</h1>
             {salad?.user?.username} {monthDay}
             {descriptionSection}
-            <ReviewForm postReview={postReview} />
+            {reviewForm}
             <ReviewList reviews={reviews} />
         </div>
     )
