@@ -1,5 +1,4 @@
 import express from "express"
-import saladReviewsRouter from "./saladReviewsRouter.js"
 import objection from "objection"
 import { ValidationError } from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
@@ -46,11 +45,8 @@ saladsRouter.get("/:id", async (req, res) => {
     try {
         const showSalad = await Salad.query().findById(saladId)
         showSalad.user = await showSalad.$relatedQuery("user")
-        const reviews = await showSalad.$relatedQuery("reviews")
-        const reviewsSorted = reviews.sort((b,a) => {
-            return Date.parse(a.createdAt) - Date.parse(b.createdAt)
-        })
-        const reviewsWithUsers = await Promise.all(reviewsSorted.map(async(review) => {
+        const reviews = await showSalad.$relatedQuery("reviews").orderBy("createdAt", "desc")
+        const reviewsWithUsers = await Promise.all(reviews.map(async(review) => {
             review.user = await review.$relatedQuery("user")
             return review
         }))
@@ -62,7 +58,5 @@ saladsRouter.get("/:id", async (req, res) => {
         return res.status(500).json({ errors: error })
     }
 })
-
-saladsRouter.use('/:id/reviews', saladReviewsRouter)
 
 export default saladsRouter;

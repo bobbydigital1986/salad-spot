@@ -86,6 +86,8 @@ const SaladForm = (props) => {
                             type="url"
                             id="imageURL"
                             name="imageURL"
+                            onChange={handleInputChange}
+                            value={newSalad.imageURL}
                         />
                 </label>
                 <input className="button-group" type="submit" value="Submit"/>

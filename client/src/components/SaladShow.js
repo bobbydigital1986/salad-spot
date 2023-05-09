@@ -2,6 +2,7 @@ import React, {useState, useEffect } from "react";
 import ReviewList from "./ReviewList";
 import ReviewForm from "./ReviewForm";
 import getNiceDate from "../services/getNiceDate";
+import translateServerErrors from "../services/translateServerErrors"
 
 
 const SaladShow = (props) =>{
@@ -13,7 +14,6 @@ const SaladShow = (props) =>{
     })
     const [errors, setErrors] = useState([])
     const [reviews, setReviews] = useState([])
-
     const postReview = async (newReview) => {
         try {
             const saladId = props.match.params.id
@@ -26,8 +26,9 @@ const SaladShow = (props) =>{
             })
             if (!response.ok) {
                 if(response.status === 422) {
-                    const body = await response.json()
-                    return setErrors(body.errors)
+                    const errorBody = await response.json()
+                    const newErrors = translateServerErrors(errorBody.errors.data)
+                    return setErrors(newErrors)
                 } else {
                     const errorMessage = `${response.status} (${response.statusText})`
                     const error = new Error(errorMessage)
@@ -35,7 +36,8 @@ const SaladShow = (props) =>{
                 }
             } else {
                 const body = await response.json()
-                getSalad()
+                setErrors([])
+                return setReviews([body.body, ...reviews])
             }
         } catch(error) {
             console.error(`Error in Fetch ${error.message}`)
@@ -71,7 +73,10 @@ const SaladShow = (props) =>{
     let reviewForm
     if (props.user) { 
         reviewForm = (
-            <ReviewForm postReview={postReview} />
+            <ReviewForm
+                postReview={postReview}
+                errors={errors}
+            />
         )
     }
 

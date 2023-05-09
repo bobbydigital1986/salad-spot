@@ -6,7 +6,7 @@ const ReviewTile = ({ user, body, createdAt }) => {
     
     return( 
         <div className="review-tile callout">
-            <h6>{user.username} {monthDay}</h6>
+            <h6>{user?.username} {monthDay}</h6>
             <p>{body}</p>
         </div>
         
