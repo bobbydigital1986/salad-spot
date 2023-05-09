@@ -8,7 +8,7 @@
 exports.up = async (knex) => {
     return knex.schema.createTable("votes", (table) => {
         table.bigIncrements("id")
-        table.integer("rating")
+        table.integer("vote")
             .notNullable()
         table.bigInteger("saladId")
             .index()

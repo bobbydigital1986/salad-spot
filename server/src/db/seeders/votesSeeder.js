@@ -5,7 +5,7 @@ class VoteSeeder {
         const firstSalad = await Salad.query().first()
         const firstUser = await User.query().first()
         
-        await Vote.query().insert({ rating: 1, userId: firstUser.id, saladId: firstSalad.id})
+        await Vote.query().insert({ vote: 1, userId: firstUser.id, saladId: firstSalad.id})
 
     }
 }

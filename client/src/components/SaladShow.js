@@ -3,7 +3,7 @@ import ReviewList from "./ReviewList";
 import ReviewForm from "./ReviewForm";
 import getNiceDate from "../services/getNiceDate";
 import translateServerErrors from "../services/translateServerErrors"
-
+import VotingButton from "./VotingButton";
 
 const SaladShow = (props) =>{
     const [salad, setSalad] = useState({
@@ -84,6 +84,10 @@ const SaladShow = (props) =>{
     return (
         <div className="callout review-tile">
             <h1>{salad.name}</h1>
+            <VotingButton 
+                vote={props.vote}
+                postVote={props.postVote}
+            />
             {salad?.user?.username} {monthDay}
             {descriptionSection}
             {reviewForm}
