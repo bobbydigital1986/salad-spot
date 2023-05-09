@@ -8,30 +8,37 @@ class SaladSeeder {
         const saladsData = [
             {
                 name: "Cobb",
+                description: "This was a super tasty salad",
                 userId: john.id
             },
             {
                 name: "Fruit",
+                description: "This was a super tasty salad",
                 userId: john.id
             },
             {
                 name: "Potato",
+                description: "This was a super tasty salad",
                 userId: mary.id
             },
             {
                 name: "Quinoa",
+                description: "This was a super tasty salad",
                 userId: mary.id
             },
             {
                 name: "Greek",
+                description: "This was a super tasty salad",
                 userId: mary.id
             },
             {
                 name: "Caesar",
+                description: "This was a super tasty salad",
                 userId: sally.id
             },
             {
                 name: "Kale",
+                description: "This was a super tasty salad",
                 userId: sally.id
             }
         ]

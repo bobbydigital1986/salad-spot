@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import ErrorList from "../components/layout/ErrorList"
-import translateServerErrors from "../../src/services/translateServerErrors"
+import ErrorList from "./layout/ErrorList"
+import translateServerErrors from "../services/translateServerErrors"
 import { Redirect } from "react-router-dom"
 
-const NewSaladForm = (props) => {
+const SaladForm = (props) => {
 
     const [errors, setErrors] = useState([])
     const [shouldRedirect, setShouldRedirect] = useState(false)
@@ -58,7 +58,7 @@ const NewSaladForm = (props) => {
     }
 
     return (
-        <>
+        <div className="callout review-title">
             <h1>Add a New Salad</h1>
             <ErrorList errors={errors}/>
             <form onSubmit={handleSubmit}>
@@ -82,8 +82,8 @@ const NewSaladForm = (props) => {
                 </label>
                 <input className="button-group" type="submit" value="Submit"/>
             </form> 
-        </>
+        </div>
     )
 }
 
-export default NewSaladForm
+export default SaladForm
