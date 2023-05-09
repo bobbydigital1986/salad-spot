@@ -5,14 +5,13 @@ import { useState } from "react";
 const SaladTile = (props) => {
     
     const { name, description, id, user, vote } = props.salad 
-    const [voteStatus, setVoteStatus] = useState({
-        vote
-    })
+
+
     const handleClick = (event) => { 
         if (event.target === "upvote") {
-            props.postVote(1)
+            props.postVote(1, id, user.id)
         } else if (event.target === "downvote") {
-            props.postVote(-1)
+            props.postVote(-1, id, user.id)
         }
     }
 

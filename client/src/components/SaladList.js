@@ -25,7 +25,7 @@ const SaladList = (props) => {
         getSalads()
     }, [])
 
-    const postVote = async({vote}) => {
+    const postVote = async(vote, saladId, userId) => {
         console.log("hey there")
         try {
             const response = fetch("/api/v1/vote", {
@@ -33,7 +33,7 @@ const SaladList = (props) => {
                 headers: new Headers({
                     "Content-Type": "application/json"
                 }),
-                body: JSON.stringify({ vote })
+                body: JSON.stringify({ vote, saladId, userId })
             })
             if (!response.ok) {
                 if(response.status === 422) {

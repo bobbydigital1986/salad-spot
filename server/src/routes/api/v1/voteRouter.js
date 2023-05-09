@@ -8,7 +8,8 @@ voteRouter.post("/", async(req, res) =>{
     // userId: 3
     // saladId: 4
     const { body } = req
-    const voteLookup = await Vote.query().findOne({ body })
+    console.log(body)
+    const voteLookup = await Vote.query().findOne(body)
     try {
         if (!voteLookup) {
             const voteLookupSansVote = await Vote.query().findOne({ saladId: body.saladId, userId: body.userId })
