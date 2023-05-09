@@ -80,6 +80,14 @@ const SaladForm = (props) => {
                             value={newSalad.description}
                         />
                 </label>
+                <label>
+                    Image URL: 
+                        <input
+                            type="url"
+                            id="imageURL"
+                            name="imageURL"
+                        />
+                </label>
                 <input className="button-group" type="submit" value="Submit"/>
             </form> 
         </div>

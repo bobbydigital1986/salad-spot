@@ -9,6 +9,7 @@ const SaladShow = (props) =>{
     const [salad, setSalad] = useState({
         name: "",
         description: "",
+        imageURL: "",
         reviews: []
     })
     const [errors, setErrors] = useState([])
@@ -79,6 +80,11 @@ const SaladShow = (props) =>{
         )
     }
 
+    let imageSection
+    if ( salad.imageURL) {
+        imageSection = <p>Salad Image: {salad.imageURL}</p>
+        }
+
     const monthDay = getNiceDate(salad.createdAt)
 
     return (
@@ -87,6 +93,7 @@ const SaladShow = (props) =>{
             {salad?.user?.username} {monthDay}
             {descriptionSection}
             {reviewForm}
+            {imageSection}
             <ReviewList reviews={reviews} />
         </div>
     )

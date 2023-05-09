@@ -3,6 +3,7 @@ import objection from "objection"
 import { ValidationError } from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import { User, Salad } from "../../../models/index.js"
+import uploadImage from "../../../services/uploadImage.js"
 
 const saladsRouter = new express.Router()
 
@@ -20,12 +21,13 @@ saladsRouter.get("/", async (req, res) => {
     }
 })
 
-saladsRouter.post("/new", async (req, res)=> {
+saladsRouter.post("/new", uploadImage.single("image"), async (req, res)=> {
     const { name, description } = req.body
     const { id } = req.user
+    const imageURL = req.file ? req.file.location : null;
     try {
         const postingUser = await User.query().findById(id)
-        const cleanSalad = cleanUserInput({ name, description })
+        const cleanSalad = cleanUserInput({ name, description, imageURL })
         const newSalad = await postingUser.$relatedQuery("salads").insertAndFetch(cleanSalad)
 
         return res.status(201).json({ salads: newSalad }) 

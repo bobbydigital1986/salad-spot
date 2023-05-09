@@ -9,7 +9,8 @@ class SaladSeeder {
             {
                 name: "Cobb",
                 description: "This was a super tasty salad",
-                userId: john.id
+                userId: john.id,
+                imageURL: "https://saladpicss.s3.amazonaws.com/untitled+folder/cobb.jpg" 
             },
             {
                 name: "Fruit",
