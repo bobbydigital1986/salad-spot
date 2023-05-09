@@ -4,7 +4,8 @@ import multerS3 from "multer-s3"
 
 import config from "../config.js"
 
-AWS. config.update({
+console.log(config.development)
+AWS.config.update({
     accessKeyId: config.awsAccess.key,
     secretAccessKey: config.awsSecret.key,
     region: "us-east-1"
@@ -18,7 +19,7 @@ const uploadImage = multer({
         bucket: config.s3Bucket.name,
         acl: "public-read",
         key: function (req, file, cb) {
-            cb(null, Date.now().toString())
+            cb(null, file.originalname)
         }
     })
 })
