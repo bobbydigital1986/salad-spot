@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import ErrorList from "./layout/ErrorList"
 import translateServerErrors from "../services/translateServerErrors"
 import { Redirect } from "react-router-dom"
+import Dropzone from "react-dropzone"
 
 const SaladForm = (props) => {
+    const [images, setImages] = useState([])
+    const [newImageFormData, setNewImageFormData] = useState({
+        image: {}
+    })
 
     const [errors, setErrors] = useState([])
     const [shouldRedirect, setShouldRedirect] = useState(false)
@@ -24,33 +29,44 @@ const SaladForm = (props) => {
         postSalad(newSalad)
     }
 
-    const postSalad = async (newSaladData) => {
-        try{
-            const response = await fetch(`/api/v1/salads/new`, {
-                method: "POST",
-                headers: new Headers({
-                    "Content-Type": "application/json"
-                }),
-                body: JSON.stringify(newSaladData)
-            })
-            if (!response.ok) {
-                if (response.status == 422) {
-                    const errorBody = await response.json()
-                    const newErrors = translateServerErrors(errorBody.errors.data)
-                    return setErrors(newErrors)
-                } else {
-                    const errorMessage = `${response.status} (${response.statusText})`
-                    const error = new Error(errorMessage)
-                }
+    const postSalad = async (newSaladData, newImageFormData) => {
+        const formData = new FormData()
+        formData.append('saladData', JSON.stringify(newSaladData))
+        formData.append('image', newImageFormData.image)
+      
+        try {
+          const response = await fetch('/api/v1/salads', {
+            method: 'POST',
+            headers: ({
+                "Content-Type": "application/json",
+                "Accept": "image/jpeg"
+            }),
+            body: formData
+          })
+          if (!response.ok) {
+            if (response.status == 422) {
+              const errorBody = await response.json()
+              const newErrors = translateServerErrors(errorBody.errors.data)
+              return setErrors(newErrors)
             } else {
-                const responseBody = await response.json()
-                const updatedSalad = responseBody.salads
-                setNewSalad({ ...newSalad, id: updatedSalad.id })
-                setShouldRedirect(true)
+              const errorMessage = `${response.status} (${response.statusText})`
+              const error = new Error(errorMessage)
             }
+          } else {
+            const responseBody = await response.json()
+            const updatedSalad = responseBody.salads
+            setShouldRedirect({ status: true, newSaladId: updatedSalad.id })
+          }
         } catch (error) {
-            console.error(`Error in fetch: ${error.message}`)
+          console.error(`Error in fetch: ${error.message}`)
         }
+      }
+
+    const handleImageUpload = (acceptedImage) => {
+        setNewImageFormData({
+          ...newImageFormData,
+          image: acceptedImage[0]
+        })
     }
 
     if (shouldRedirect) {
@@ -80,18 +96,26 @@ const SaladForm = (props) => {
                             value={newSalad.description}
                         />
                 </label>
-                <label>
-                    Image URL: 
-                        <input
-                            type="url"
-                            id="imageURL"
-                            name="imageURL"
-                            onChange={handleInputChange}
-                            value={newSalad.imageURL}
-                        />
-                </label>
-                <input className="button-group" type="submit" value="Submit"/>
-            </form> 
+                <div className='callout primary'>
+                <Dropzone onDrop={handleImageUpload}>
+                        {({getRootProps, getInputProps}) => (
+                            <section>
+                            <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <p>Upload Your Salad Image - drag 'n' drop or click to upload</p>
+                            <div>
+                                <label htmlFor="fileInput">Choose file:</label>
+                                <input type="file" id="fileInput" />
+                                <button onClick={handleImageUpload}>Upload</button>
+                            </div>
+                            </div>
+                        </section>
+                        )}
+                </Dropzone>
+                </div>
+                <input className="button" type="submit" value="Add" />
+            </form>
+
         </div>
     )
 }
