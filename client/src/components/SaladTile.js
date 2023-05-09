@@ -5,7 +5,9 @@ import VotingButton from "./VotingButton";
 
 const SaladTile = (props) => {
     
-    const { name, description, id, user, vote } = props.salad 
+    const { name, description, id, user, votes } = props.salad
+
+    
 
 
     // const handleClick = (event) => { 
