@@ -26,10 +26,18 @@ const SaladForm = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        postSalad(newSalad)
+        postSalad(newSalad, newImageFormData)
+    }
+    
+    const handleImageUpload = (acceptedImage) => {
+        setNewImageFormData({
+          ...newImageFormData,
+          image: acceptedImage[0]
+        })
     }
 
     const postSalad = async (newSaladData, newImageFormData) => {
+        debugger
         const formData = new FormData()
         formData.append('saladData', JSON.stringify(newSaladData))
         formData.append('image', newImageFormData.image)
@@ -62,12 +70,6 @@ const SaladForm = (props) => {
         }
       }
 
-    const handleImageUpload = (acceptedImage) => {
-        setNewImageFormData({
-          ...newImageFormData,
-          image: acceptedImage[0]
-        })
-    }
 
     if (shouldRedirect) {
         return <Redirect push to={`/salads/${newSalad.id}`}/>

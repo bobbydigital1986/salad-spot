@@ -21,7 +21,7 @@ saladsRouter.get("/", async (req, res) => {
     }
 })
 
-saladsRouter.post("/new", uploadImage.single("image"), async (req, res)=> {
+saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
     const { name, description } = req.body
     const { id } = req.user
     console.log(req.body)
