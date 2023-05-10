@@ -74,7 +74,7 @@ const SaladForm = (props) => {
 
 
     if (shouldRedirect) {
-        return <Redirect push to={`/salads/${newSaladId}`}/>
+        return <Redirect push to={`/salads/${shouldRedirect.newSaladId}`}/>
     }
 
     return (
