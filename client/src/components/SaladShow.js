@@ -81,8 +81,8 @@ const SaladShow = (props) =>{
     }
 
     let imageSection
-    if ( salad.imageURL) {
-        imageSection = <p>Salad Image: {salad.imageURL}</p>
+    if (salad.imageURL) {
+        imageSection = <img src={salad.imageURL} />
         }
 
     const monthDay = getNiceDate(salad.createdAt)

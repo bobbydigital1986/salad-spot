@@ -21,13 +21,14 @@ saladsRouter.get("/", async (req, res) => {
     }
 })
 
-saladsRouter.post("/new", uploadImage.single("image"), async (req, res)=> {
+saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
     const { name, description } = req.body
     const { id } = req.user
-    const imageURL = req.file ? req.file.location : null;
+    console.log(req.body)
+    console.log(req.file)
     try {
         const postingUser = await User.query().findById(id)
-        const cleanSalad = cleanUserInput({ name, description, imageURL })
+        const cleanSalad = cleanUserInput({ name, description, imageURL: req.file?.location })
         const newSalad = await postingUser.$relatedQuery("salads").insertAndFetch(cleanSalad)
 
         return res.status(201).json({ salads: newSalad }) 
@@ -35,6 +36,7 @@ saladsRouter.post("/new", uploadImage.single("image"), async (req, res)=> {
         if (error instanceof ValidationError) {
             res.status(422).json({ errors: error })
         } else {
+            console.log(error)
             return res.status(500).json({ errors: error })
         }
     }
