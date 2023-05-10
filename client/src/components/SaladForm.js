@@ -26,7 +26,7 @@ const SaladForm = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        postSalad(newSalad, newImageFormData)
+        postSalad()
     }
     
     const handleImageUpload = (acceptedImage) => {
@@ -36,17 +36,19 @@ const SaladForm = (props) => {
         })
     }
 
-    const postSalad = async (newSaladData, newImageFormData) => {
-        debugger
+    const postSalad = async () => {
         const formData = new FormData()
-        formData.append('saladData', JSON.stringify(newSaladData))
+        formData.append('name', newSalad.name)
+        formData.append('description', newSalad.description)
         formData.append('image', newImageFormData.image)
+        for (const pair of formData.entries()) {
+            console.log(`${pair[0]}, ${pair[1]}`);
+          }
       
         try {
           const response = await fetch('/api/v1/salads', {
             method: 'POST',
             headers: ({
-                "Content-Type": "application/json",
                 "Accept": "image/jpeg"
             }),
             body: formData
@@ -102,16 +104,11 @@ const SaladForm = (props) => {
                 <Dropzone onDrop={handleImageUpload}>
                         {({getRootProps, getInputProps}) => (
                             <section>
-                            <div {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            <p>Upload Your Salad Image - drag 'n' drop or click to upload</p>
-                            <div>
-                                <label htmlFor="fileInput">Choose file:</label>
-                                <input type="file" id="fileInput" />
-                                <button onClick={handleImageUpload}>Upload</button>
-                            </div>
-                            </div>
-                        </section>
+                                <div {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    <p>Upload Your Salad Image - drag 'n' drop or click to upload</p>
+                                </div>
+                            </section>
                         )}
                 </Dropzone>
                 </div>

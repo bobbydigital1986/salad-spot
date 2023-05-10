@@ -22,25 +22,24 @@ saladsRouter.get("/", async (req, res) => {
 })
 
 saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
-    const { name, description } = req.body
-    const { id } = req.user
-    console.log(req.body)
-    console.log(req.file)
-    try {
-        const postingUser = await User.query().findById(id)
-        const cleanSalad = cleanUserInput({ name, description, imageURL: req.file?.location })
-        const newSalad = await postingUser.$relatedQuery("salads").insertAndFetch(cleanSalad)
-
-        return res.status(201).json({ salads: newSalad }) 
-    } catch(error) {
-        if (error instanceof ValidationError) {
-            res.status(422).json({ errors: error })
-        } else {
+        const { name, description } = req.body
+        const { image } = req.file.location
+        const { body } = req
+        try {
+            const postingUser = req.user
+            const cleanSalad = cleanUserInput({ name, description, imageURL })
+            Salad.query().insert({ name: name, description: description, userId: postingUser.id, imageURL: image})
+            return res.status(201).json({ salads: cleanSalad }) 
+        } catch(error) {
             console.log(error)
-            return res.status(500).json({ errors: error })
+            if (error instanceof ValidationError) {
+                res.status(422).json({ errors: error })
+            } else {
+                console.log(error)
+                return res.status(500).json({ errors: error })
+            }
         }
-    }
-})
+    })
 
 saladsRouter.get("/:id", async (req, res) => {
     const saladId = req.params.id
