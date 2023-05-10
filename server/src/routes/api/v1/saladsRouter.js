@@ -23,23 +23,21 @@ saladsRouter.get("/", async (req, res) => {
 
 saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
         const { name, description } = req.body
-        const { image } = req.file.location
-        
+        const image = req.file.location
+
         try {
             const postingUser = req.user
-            const cleanSalad = cleanUserInput({ name, description, imageURL })
-            Salad.query().insert({ name: name, description: description, userId: postingUser.id, imageURL: image})
-            return res.status(201).json({ salads: cleanSalad }) 
+            const cleanSalad = cleanUserInput({ name, description })
+            const saladWithPicture = await Salad.query().insert({ name: cleanSalad.name, description: cleanSalad.description, userId: postingUser.id, imageURL: image})
+            return res.status(201).json({ salad: saladWithPicture }) 
         } catch(error) {
-            console.log(error)
             if (error instanceof ValidationError) {
                 res.status(422).json({ errors: error })
             } else {
-                console.log(error)
                 return res.status(500).json({ errors: error })
             }
         }
-    })
+})
 
 saladsRouter.get("/:id", async (req, res) => {
     const saladId = req.params.id
@@ -55,7 +53,6 @@ saladsRouter.get("/:id", async (req, res) => {
         
         return res.status(200).json({ salad: showSalad })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ errors: error })
     }
 })
