@@ -4,12 +4,15 @@ import ReviewForm from "./ReviewForm";
 import getNiceDate from "../services/getNiceDate";
 import translateServerErrors from "../services/translateServerErrors"
 import VotingButton from "./VotingButton";
+import postVote from "../services/postVote";
 
 const SaladShow = (props) =>{
     const [salad, setSalad] = useState({
         name: "",
         description: "",
-        reviews: []
+        reviews: [],
+        votes: [],
+        rating: 0
     })
     const [errors, setErrors] = useState([])
     const [reviews, setReviews] = useState([])
@@ -64,8 +67,16 @@ const SaladShow = (props) =>{
         getSalad()
     }, [])
 
+    const voteMaker = async(vote, salad) => {
+        // console.log("voteMaker initialized", vote, salad)
+        const newSalad = await postVote(vote, salad)
+        console.log("newSalad", newSalad)
+
+        setSalad(newSalad)
+    }
+
     let descriptionSection
-    if (salad.description) {
+    if (salad?.description) {
         descriptionSection = <p>Salad description: {salad.description}</p>
     }
 
@@ -79,14 +90,15 @@ const SaladShow = (props) =>{
         )
     }
 
-    const monthDay = getNiceDate(salad.createdAt)
-
+    const monthDay = getNiceDate(salad?.createdAt)
+    console.log(salad)
     return (
         <div className="callout review-tile">
             <h1>{salad.name}</h1>
             <VotingButton 
-                voteMaker={props.voteMaker}
-                salad={props.salad}
+                voteMaker={voteMaker}
+                salad={salad}
+                user={props.user}
             />
             {salad?.user?.username} {monthDay}
             {descriptionSection}

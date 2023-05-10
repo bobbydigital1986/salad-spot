@@ -14,7 +14,7 @@ saladsRouter.get("/", async (req, res) => {
             const saladUser = await salad.$relatedQuery("user")
             salad.user = saladUser.username
             
-            return saladSerializer.voteDetails(salad)
+            return await saladSerializer.voteDetails(salad)
             //salad.votes = [array of votes]
             //salad.rating = sum of votes for salad
         }))
@@ -33,9 +33,10 @@ saladsRouter.post("/new", async (req, res)=> {
         const postingUser = await User.query().findById(id)
         const cleanSalad = cleanUserInput({ name, description })
         const newSaladSansVote = await postingUser.$relatedQuery("salads").insertAndFetch(cleanSalad)
-        const newSalad = saladSerializer(newSaladSansVote)
+        const newSalad = await saladSerializer.voteDetails(newSaladSansVote)
         return res.status(201).json({ salads: newSalad }) 
     } catch(error) {
+        console.log(error)
         if (error instanceof ValidationError) {
             res.status(422).json({ errors: error })
         } else {
@@ -55,8 +56,9 @@ saladsRouter.get("/:id", async (req, res) => {
             return review
         }))
         showSalad.reviews = reviewsWithUsers
+        const showSaladWithVotes = await saladSerializer.voteDetails(showSalad)
         
-        return res.status(200).json({ salad: showSalad })
+        return res.status(200).json({ salad: showSaladWithVotes })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ errors: error })

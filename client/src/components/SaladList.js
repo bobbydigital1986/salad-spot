@@ -26,7 +26,7 @@ const SaladList = (props) => {
     }, [])
 
     const voteMaker = async(vote, salad) => {
-        console.log("voteMaker initialized", vote, salad)
+        // console.log("voteMaker initialized", vote, salad)
         const newSalad = await postVote(vote, salad)
         console.log("newSalad", newSalad)
         const saladArray = salads.map((salad) => {
