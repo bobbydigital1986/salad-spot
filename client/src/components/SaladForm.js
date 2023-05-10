@@ -64,7 +64,7 @@ const SaladForm = (props) => {
             }
           } else {
             const responseBody = await response.json()
-            const updatedSalad = responseBody.salads
+            const updatedSalad = responseBody.salad
             setShouldRedirect({ status: true, newSaladId: updatedSalad.id })
           }
         } catch (error) {
@@ -74,7 +74,7 @@ const SaladForm = (props) => {
 
 
     if (shouldRedirect) {
-        return <Redirect push to={`/salads/${newSalad.id}`}/>
+        return <Redirect push to={`/salads/${newSaladId}`}/>
     }
 
     return (

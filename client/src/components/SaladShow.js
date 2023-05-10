@@ -91,9 +91,9 @@ const SaladShow = (props) =>{
         <div className="callout review-tile">
             <h1>{salad.name}</h1>
             {salad?.user?.username} {monthDay}
+            {imageSection}
             {descriptionSection}
             {reviewForm}
-            {imageSection}
             <ReviewList reviews={reviews} />
         </div>
     )
