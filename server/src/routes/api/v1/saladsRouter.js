@@ -24,8 +24,6 @@ saladsRouter.get("/", async (req, res) => {
 saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
     const { name, description } = req.body
     const { id } = req.user
-    console.log(req.body)
-    console.log(req.file)
     try {
         const postingUser = await User.query().findById(id)
         const cleanSalad = cleanUserInput({ name, description, imageURL: req.file?.location })

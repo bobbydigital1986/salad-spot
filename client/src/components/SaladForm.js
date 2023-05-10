@@ -37,10 +37,9 @@ const SaladForm = (props) => {
     }
 
     const postSalad = async (newSaladData, newImageFormData) => {
-        debugger
         const formData = new FormData()
-        formData.append('saladData', JSON.stringify(newSaladData))
-        formData.append('image', newImageFormData.image)
+        formData.append('saladData', newSaladData)
+        formData.append('image', newImageFormData)
       
         try {
           const response = await fetch('/api/v1/salads', {
