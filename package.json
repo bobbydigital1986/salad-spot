@@ -18,8 +18,5 @@
   },
   "engines": {
     "node": "^16.18"
-  },
-  "dependencies": {
-    "aws-sdk": "^2.1374.0"
   }
 }

@@ -2379,11 +2379,7 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-<<<<<<< HEAD
 aws-sdk@^2.1374.0:
-=======
-aws-sdk@^2.1374.0, aws-sdk@^2.842.0:
->>>>>>> bf1c9d430572535c3b16665544aef2d082d6cb80
   version "2.1374.0"
   resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1374.0.tgz"
   integrity sha512-Q7TExvBskRM23GfE1iy0GRxpUF+d9LY7ggmdHvL+2gX/QTzxSYaHHRPa8MNzFtzZLz+BDcDIgAcMjYKsrm18Rw==
@@ -7780,7 +7776,6 @@ passport-strategy@1.x.x:
   resolved "https://registry.npmjs.org/passport-strategy/-/passport-strategy-1.0.0.tgz"
   integrity sha512-CB97UUvDKJde2V0KDWWB3lyf6PC3FaZP7YxZ2G8OAtn9p4HI9j9JLP9qjOGZFvyl8uwNT8qM+hGnz/n16NI7oA==
 
-<<<<<<< HEAD
 passport@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/passport/-/passport-0.6.0.tgz#e869579fab465b5c0b291e841e6cc95c005fac9d"
@@ -7789,15 +7784,6 @@ passport@^0.6.0:
     passport-strategy "1.x.x"
     pause "0.0.1"
     utils-merge "^1.0.1"
-=======
-passport@^0.5.0:
-  version "0.5.3"
-  resolved "https://registry.npmjs.org/passport/-/passport-0.5.3.tgz"
-  integrity sha512-gGc+70h4gGdBWNsR3FuV3byLDY6KBTJAIExGFXTpQaYfbbcHCBlRRKx7RBQSpqEqc5Hh2qVzRs7ssvSfOpkUEA==
-  dependencies:
-    passport-strategy "1.x.x"
-    pause "0.0.1"
->>>>>>> bf1c9d430572535c3b16665544aef2d082d6cb80
 
 path-dirname@^1.0.0:
   version "1.0.2"
@@ -9993,11 +9979,7 @@ utila@~0.4:
   resolved "https://registry.npmjs.org/utila/-/utila-0.4.0.tgz"
   integrity sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA==
 
-<<<<<<< HEAD
 utils-merge@1.0.1, utils-merge@^1.0.1:
-=======
-utils-merge@1.0.1:
->>>>>>> bf1c9d430572535c3b16665544aef2d082d6cb80
   version "1.0.1"
   resolved "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz"
   integrity sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==
