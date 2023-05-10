@@ -5,9 +5,9 @@ import VotingButton from "./VotingButton";
 
 const SaladTile = (props) => {
     
-    const { name, description, id, user, votes } = props.salad
+    const { name, description, id, user } = props.salad
 
-    
+
 
 
     // const handleClick = (event) => { 
@@ -35,9 +35,9 @@ const SaladTile = (props) => {
         <>
             <li><Link to={`/salads/${id}`}>{name}</Link></li>
             <VotingButton 
-                vote={vote}
                 user={props.user}
                 salad={props.salad}
+                voteMaker={props.voteMaker}
             />
             <p>{description}</p>
             <h4 className='submitted-by'>Submitted by {user}</h4>

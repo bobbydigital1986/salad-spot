@@ -85,8 +85,8 @@ const SaladShow = (props) =>{
         <div className="callout review-tile">
             <h1>{salad.name}</h1>
             <VotingButton 
-                vote={props.vote}
-                postVote={props.postVote}
+                voteMaker={props.voteMaker}
+                salad={props.salad}
             />
             {salad?.user?.username} {monthDay}
             {descriptionSection}

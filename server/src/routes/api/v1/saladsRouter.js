@@ -21,6 +21,7 @@ saladsRouter.get("/", async (req, res) => {
 
         return res.status(200).json({ salads: salads })
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ errors: error })
     }
 })
@@ -31,8 +32,8 @@ saladsRouter.post("/new", async (req, res)=> {
     try {
         const postingUser = await User.query().findById(id)
         const cleanSalad = cleanUserInput({ name, description })
-        const newSalad = await postingUser.$relatedQuery("salads").insertAndFetch(cleanSalad)
-
+        const newSaladSansVote = await postingUser.$relatedQuery("salads").insertAndFetch(cleanSalad)
+        const newSalad = saladSerializer(newSaladSansVote)
         return res.status(201).json({ salads: newSalad }) 
     } catch(error) {
         if (error instanceof ValidationError) {
