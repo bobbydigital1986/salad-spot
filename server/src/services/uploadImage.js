@@ -18,7 +18,7 @@ const uploadImage = multer({
         s3: s3,
         bucket: config.s3Bucket.name,
         acl: "public-read",
-        key: function (req, file, cb) {
+        key: function (req, file, cb) { 
             cb(null, file.originalname)
         }
     })
