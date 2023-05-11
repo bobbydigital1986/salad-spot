@@ -40,11 +40,11 @@ const VotingButton = ({ salad, voteMaker, user, userVote }) => {
     }
 
     return (
-        <>
+        <div className="voting-show-section">
             <button className="button" onClick={addVote} disabled={addDisabled}>Fresh</button>
             <p className="vote-count">{salad?.rating}</p>
             <button className="button" onClick={subtractVote} disabled={subtractDisabled}>Wilted</button>
-        </>
+        </div>
     )
 }
 

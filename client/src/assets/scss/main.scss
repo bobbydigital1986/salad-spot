@@ -117,6 +117,7 @@ img {
   width: 100%;
   font-size: 20px;
   font-weight: 600;
+  height: 15%
 }
 
 .voting-button {
@@ -129,10 +130,24 @@ img {
 
 .submitted-by {
   width: 40%;
+  height: 5%;
+  margin-left: 20rem;
+  text-align: right;
 }
 
 .salad-pics {
   width: 30%;
   height: 30%;
+  margin-top: 0%;
+  margin-left: 25%;
+}
+
+.tile-image {
+  width: 20%;
+  height: 30%;
   position: relative;
+}
+
+.voting-show-section {
+  width: 30%;
 }
