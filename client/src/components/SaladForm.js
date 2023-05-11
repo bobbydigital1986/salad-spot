@@ -49,7 +49,6 @@ const SaladForm = (props) => {
                 setShouldRedirect(true)
             }
         } catch (error) {
-            console.log(error)
             console.error(`Error in fetch: ${error.message}`)
         }
     }

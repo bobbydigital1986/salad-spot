@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 import VotingButton from "./VotingButton";
 
 const SaladTile = (props) => {
-    
     const { name, description, id, user } = props.salad
 
     return (

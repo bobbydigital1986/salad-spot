@@ -1,29 +1,37 @@
 import React from "react";
 
-const VotingButton = ({ salad, voteMaker, user }) => {
-    console.log("Salad", salad)
+const VotingButton = ({ salad, voteMaker, user, userVote }) => {
     let addDisabled
     let subtractDisabled
     const matchingVote = salad?.votes.find((vote) => vote.userId === user?.id)
 
-    if (matchingVote?.vote == 1) {
+    //Logic handling vote status in SaladList
+    if (matchingVote?.vote >= 1) {
         addDisabled = true
         subtractDisabled = false
-    } else if (matchingVote?.vote == -1) {
+    } else if (matchingVote?.vote <= -1) {
         addDisabled = false
         subtractDisabled = true
-    } else if (!matchingVote) {
+    } 
+
+    //Logic handling vote status in SaladShow
+    if (!userVote && !matchingVote) {
         addDisabled = false
         subtractDisabled = false
-    }
+    } else if (userVote >= 1) {
+        addDisabled = true
+        subtractDisabled = false
+    } else if (userVote <= -1) {
+        addDisabled = false
+        subtractDisabled = true
+    } 
 
     const addVote = () => {
-
-        voteMaker(1, salad)
+        return voteMaker(1, salad)
     }
 
     const subtractVote = () => {
-        voteMaker(-1, salad)
+        return voteMaker(-1, salad)
     }
 
     return (
