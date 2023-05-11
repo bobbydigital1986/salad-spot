@@ -6,6 +6,7 @@ import User from "../models/User.js"
 import UserSeeder from "./seeders/UserSeeder.js"
 import SaladSeeder from "./seeders/SaladSeeder.js"
 import ReviewSeeder from "./seeders/ReviewSeeder.js"
+import VoteSeeder from "./seeders/votesSeeder.js"
 
 class Seeder {
   static async seed() {
@@ -17,6 +18,9 @@ class Seeder {
 
     console.log("review this!")
     await ReviewSeeder.seed()
+
+    console.log("seeding votes")
+    await VoteSeeder.seed()
     
     console.log("Done!")
     await connection.destroy()
