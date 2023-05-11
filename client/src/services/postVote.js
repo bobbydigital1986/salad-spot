@@ -32,8 +32,8 @@ const postVote = async(vote, salad) => {
                     }
                 })
                 salad.rating = salad.rating + body.newVote.vote
+                
                 return salad
-
             } else {
                 salad.votes = salad.votes.concat(body.newVote)
                 salad.rating = salad.rating + body.newVote.vote
