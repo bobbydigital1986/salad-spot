@@ -31,8 +31,8 @@ const SaladForm = (props) => {
     
     const handleImageUpload = (acceptedImage) => {
         setNewImageFormData({
-        ...newImageFormData,
-        image: acceptedImage[0]
+            ...newImageFormData,
+            image: acceptedImage[0]
         })
     }
 
@@ -42,27 +42,27 @@ const SaladForm = (props) => {
         formData.append('description', newSalad.description)
         formData.append('image', newImageFormData.image)
         try {
-        const response = await fetch('/api/v1/salads', {
-            method: 'POST',
-            headers: ({
-                "Accept": "image/jpeg"
-            }),
-            body: formData
-        })
-        if (!response.ok) {
-            if (response.status == 422) {
-                const errorBody = await response.json()
-                const newErrors = translateServerErrors(errorBody.errors.data)
-                return setErrors(newErrors)
+            const response = await fetch('/api/v1/salads', {
+                method: 'POST',
+                headers: ({
+                    "Accept": "image/jpeg"
+                }),
+                body: formData
+            })
+            if (!response.ok) {
+                if (response.status == 422) {
+                    const errorBody = await response.json()
+                    const newErrors = translateServerErrors(errorBody.errors.data)
+                    return setErrors(newErrors)
+                } else {
+                    const errorMessage = `${response.status} (${response.statusText})`
+                    const error = new Error(errorMessage)
+                }
             } else {
-                const errorMessage = `${response.status} (${response.statusText})`
-                const error = new Error(errorMessage)
-            }
-        } else {
-            const responseBody = await response.json()
-            const updatedSalad = responseBody.salad
-            setShouldRedirect({ status: true, newSaladId: updatedSalad.id })
-            }
+                const responseBody = await response.json()
+                const updatedSalad = responseBody.salad
+                setShouldRedirect({ status: true, newSaladId: updatedSalad.id })
+                }
         } catch (error) {
             console.error(`Error in fetch: ${error.message}`)
         }

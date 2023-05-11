@@ -29,15 +29,15 @@ const SaladEditForm = (props) => {
         try {
             const saladId = props.match.params.id
             const response = await fetch(`/api/v1/salads/${saladId}`)
-            if (!response.ok) {
+        if (!response.ok) {
                 const errorMessage = `${response.status} (${response.statusText})`
                 const error = new Error(errorMessage)
                 throw(error)
-            }
-            const responseBody = await response.json()
-            const updatedSalad = cleanDBOutput(responseBody.salad)
+        }
+                const responseBody = await response.json()
+                const updatedSalad = cleanDBOutput(responseBody.salad)
 
-            setNewSalad({ name: updatedSalad.name, description: updatedSalad.description })
+                setNewSalad({ name: updatedSalad.name, description: updatedSalad.description })
         } catch(error) {
             console.error(`Error in Fetch ${error.message}`)
         }
@@ -57,12 +57,12 @@ const SaladEditForm = (props) => {
         const saladId = props.match.params.id
 
         try {
-            const response = await fetch(`/api/v1/salads/${saladId}`, {
-            method: 'PATCH',
-            headers: new Headers({
-                "Content-Type": "application/json"
+                const response = await fetch(`/api/v1/salads/${saladId}`, {
+                method: 'PATCH',
+                headers: new Headers({
+                    "Content-Type": "application/json"
             }),
-            body: JSON.stringify({ name: newSaladName, description: newSaladDesc })
+                body: JSON.stringify({ name: newSaladName, description: newSaladDesc })
             })
             if (!response.ok) {
             if (response.status == 422) {
@@ -74,10 +74,10 @@ const SaladEditForm = (props) => {
                 const error = new Error(errorMessage)
             }
             } else {
-            const responseBody = await response.json()
-            const updatedSaladRaw = responseBody.salad
-            const updatedSalad = cleanDBOutput(updatedSaladRaw)
-            setShouldRedirect({ status: true, newSaladId: updatedSalad.id })
+                const responseBody = await response.json()
+                const updatedSaladRaw = responseBody.salad
+                const updatedSalad = cleanDBOutput(updatedSaladRaw)
+                setShouldRedirect({ status: true, newSaladId: updatedSalad.id })
             }
         } catch (error) {
             console.error(`Error in fetch: ${error.message}`)
@@ -104,8 +104,8 @@ const SaladEditForm = (props) => {
                     const error = new Error(errorMessage)
                 }
                 } else {
-                const responseBody = await response.json()
-                setShouldRedirect({ status: true, newSaladId: "" })
+                    const responseBody = await response.json()
+                    setShouldRedirect({ status: true, newSaladId: "" })
             }
         } catch (error) {
             console.error(`Error in fetch: ${error.message}`)
