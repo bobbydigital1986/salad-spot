@@ -10,37 +10,43 @@ class SaladSeeder {
                 name: "Cobb",
                 description: "This was a super tasty salad",
                 userId: john.id,
-                imageURL: "https://saladpicss.s3.amazonaws.com/untitled+folder/cobb.jpg" 
+                imageURL: "https://salad-theory.s3.amazonaws.com/cobb.jpg" 
             },
             {
                 name: "Fruit",
                 description: "This was a super tasty salad",
-                userId: john.id
+                userId: john.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/fruit.jpg" 
             },
             {
                 name: "Potato",
                 description: "This was a super tasty salad",
-                userId: mary.id
+                userId: mary.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/potato.jpg"
             },
             {
                 name: "Quinoa",
                 description: "This was a super tasty salad",
-                userId: mary.id
+                userId: mary.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/quinoa.jpg"
             },
             {
                 name: "Greek",
                 description: "This was a super tasty salad",
-                userId: mary.id
+                userId: mary.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/greek.jpg"
             },
             {
                 name: "Caesar",
                 description: "This was a super tasty salad",
-                userId: sally.id
+                userId: sally.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/caesar.jpg"
             },
             {
                 name: "Kale",
                 description: "This was a super tasty salad",
-                userId: sally.id
+                userId: sally.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/Kale.jpg"
             }
         ]
         for (const singleSaladData of saladsData) {
