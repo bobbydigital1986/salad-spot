@@ -3,6 +3,8 @@ import objection from "objection"
 import { ValidationError } from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import { User, Salad } from "../../../models/index.js"
+import saladSerializer from "../../../serializers/saladSerializer.js"
+import saladReviewsRouter from "./saladReviewsRouter.js"
 import uploadImage from "../../../services/uploadImage.js"
 
 const saladsRouter = new express.Router()
@@ -13,8 +15,10 @@ saladsRouter.get("/", async (req, res) => {
         const salads = await Promise.all(saladsSansUsers.map( async (salad) => {
             const saladUser = await salad.$relatedQuery("user")
             salad.user = saladUser.username
-            return salad
+            
+            return await saladSerializer.voteDetails(salad)
         }))
+
         return res.status(200).json({ salads: salads })
     } catch (error) {
         return res.status(500).json({ errors: error })
@@ -22,21 +26,23 @@ saladsRouter.get("/", async (req, res) => {
 })
 
 saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
-        const { name, description } = req.body
-        const image = req.file ? req.file.location : null
+    const { name, description } = req.body
+    const { id } = req.user
+    const image = req.file ? req.file.location : null
 
-        try {
-            const postingUser = req.user
-            const cleanSalad = cleanUserInput({ name, description })
-            const saladWithPicture = await Salad.query().insert({ name: cleanSalad.name, description: cleanSalad.description, userId: postingUser.id, imageURL: image})
-            return res.status(201).json({ salad: saladWithPicture }) 
-        } catch(error) {
-            if (error instanceof ValidationError) {
-                res.status(422).json({ errors: error })
-            } else {
-                return res.status(500).json({ errors: error })
-            }
+    try {
+        const postingUser = await User.query().findById(id)
+        const cleanSalad = cleanUserInput({ name, description })
+        const newSaladSansVote = await postingUser.$relatedQuery("salads").insertAndFetch({ name: cleanSalad.name, description: cleanSalad.description, userId: postingUser.id, imageURL: image})
+        const newSalad = await saladSerializer.voteDetails(newSaladSansVote)
+        return res.status(201).json({ salad: newSalad }) 
+    } catch(error) {
+        if (error instanceof ValidationError) {
+            res.status(422).json({ errors: error })
+        } else {
+            return res.status(500).json({ errors: error })
         }
+    }
 })
 
 saladsRouter.get("/:id", async (req, res) => {
@@ -50,11 +56,36 @@ saladsRouter.get("/:id", async (req, res) => {
             return review
         }))
         showSalad.reviews = reviewsWithUsers
+        const showSaladWithVotes = await saladSerializer.voteDetails(showSalad)
         
-        return res.status(200).json({ salad: showSalad })
+        return res.status(200).json({ salad: showSaladWithVotes })
     } catch (error) {
         return res.status(500).json({ errors: error })
     }
 })
+
+saladsRouter.post("/vote", async (req, res) => {
+    const { body } = req
+    const voteLookup = await Vote.query().findOne(body)
+    try {
+        if (!voteLookup) {
+            const voteLookupSansVote = await Vote.query().findOne({ saladId: body.saladId, userId: body.userId })
+            if (voteLookupSansVote) {
+                const newVote = await Vote.query().patchAndFetchById(voteLookupSansVote.id, { vote: body.vote })
+                return res.status(200).json({ newVote })
+    
+            } else {
+                const newVote = await Vote.query().insert({ vote: body.vote, userId: body.userId, saladId: body.saladId })
+                return res.status(201).json({ newVote })
+            }
+        } else {
+            res.status(304).json({ body })
+        }
+    } catch(err) {
+        res.status(500).json({ errors: err })
+    }
+})
+
+saladsRouter.use("/:id/reviews", saladReviewsRouter)
 
 export default saladsRouter;

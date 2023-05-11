@@ -6,7 +6,7 @@ class Salad extends Model{
     }
 
     static get relationMappings() {
-        const { User, Review } = require("./index.js")
+        const { User, Review, Vote } = require("./index.js")
 
         return {
             user: {
@@ -24,6 +24,15 @@ class Salad extends Model{
                 join: {
                     from: "salads.id",
                     to: "reviews.saladId"
+                }
+            },
+
+            votes: {
+                relation: Model.HasManyRelation,
+                modelClass: Vote,
+                join: {
+                    from: "salads.id",
+                    to: "votes.saladId"
                 }
             }
         }
