@@ -5,6 +5,7 @@ import getNiceDate from "../services/getNiceDate";
 import translateServerErrors from "../services/translateServerErrors"
 import VotingButton from "./VotingButton";
 import postVote from "../services/postVote";
+import { Redirect } from "react-router-dom";
 
 const SaladShow = (props) =>{
     const [salad, setSalad] = useState({
@@ -18,6 +19,7 @@ const SaladShow = (props) =>{
     const [errors, setErrors] = useState([])
     const [reviews, setReviews] = useState([])
     const [userVote, setUserVote] = useState(0)
+    const [shouldRedirect, setShouldRedirect] = useState(false)
 
     const postReview = async (newReview) => {
         try {
@@ -104,6 +106,20 @@ const SaladShow = (props) =>{
 
     const monthDay = getNiceDate(salad?.createdAt)
 
+    let editButton;
+    
+    const editSalad = () => {
+        setShouldRedirect({ status: true, newSaladId: salad?.id })
+    }
+
+    if(props.user?.id === salad.userId){
+        editButton = <button className="button" onClick={editSalad}>Edit Salad</button>
+    }
+
+    if(shouldRedirect){
+        return <Redirect push to={`/salads/${shouldRedirect.newSaladId}/edit`}/>
+    }
+
     return (
         <div className="callout review-tile">
             <h1>{salad.name}</h1>
@@ -117,6 +133,7 @@ const SaladShow = (props) =>{
             <br />
             {salad?.user?.username} {monthDay}
             {descriptionSection}
+            {editButton}
             {reviewForm}
             <ReviewList reviews={reviews} />
         </div>
