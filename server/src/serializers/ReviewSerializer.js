@@ -10,8 +10,6 @@ class ReviewSerializer {
         }
         return serializedReview
     }
-
-
 }
 
 export default ReviewSerializer

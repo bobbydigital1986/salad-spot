@@ -8,39 +8,45 @@ class SaladSeeder {
         const saladsData = [
             {
                 name: "Cobb",
-                description: "This was a super tasty salad",
+                description: "Deli meat and cheese!",
                 userId: john.id,
-                imageURL: "https://saladpicss.s3.amazonaws.com/untitled+folder/cobb.jpg" 
+                imageURL: "https://salad-theory.s3.amazonaws.com/cobb.jpg" 
             },
             {
                 name: "Fruit",
-                description: "This was a super tasty salad",
-                userId: john.id
+                description: "Apples and bananas!",
+                userId: john.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/fruit.jpg" 
             },
             {
                 name: "Potato",
-                description: "This was a super tasty salad",
-                userId: mary.id
+                description: "Taters and mayo!",
+                userId: mary.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/potato.jpg"
             },
             {
                 name: "Quinoa",
-                description: "This was a super tasty salad",
-                userId: mary.id
+                description: "A whole bunch of grains!",
+                userId: mary.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/quinoa.jpg"
             },
             {
                 name: "Greek",
-                description: "This was a super tasty salad",
-                userId: mary.id
+                description: "Salad fit for Achilles!",
+                userId: mary.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/greek.jpg"
             },
             {
                 name: "Caesar",
-                description: "This was a super tasty salad",
-                userId: sally.id
+                description: "Maybe named after Julius",
+                userId: sally.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/caesar.jpg"
             },
             {
                 name: "Kale",
                 description: "This was a super tasty salad",
-                userId: sally.id
+                userId: sally.id,
+                imageURL: "https://salad-theory.s3.amazonaws.com/kale.jpg"
             }
         ]
         for (const singleSaladData of saladsData) {
