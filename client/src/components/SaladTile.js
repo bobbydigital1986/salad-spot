@@ -15,9 +15,9 @@ const SaladTile = (props) => {
                 voteMaker={props.voteMaker}
             />
             </div>
-            <p className="salad-description">{description}</p>
+            <p className="salad-description medium-6">{description}</p>
             <img src={imageURL} className='tile-image' />
-            <h4 className='submitted-by'>Submitted by {user}</h4>
+            <h4 className='submitted-by medium-6'>Submitted by {user}</h4>
         </ div>
     )
 }
