@@ -12,6 +12,7 @@ import TopBar from "./layout/TopBar";
 import HomePage from "./HomePage";
 import SaladForm from "./SaladForm"
 import UserProfilePage from "./UserProfilePage"
+import SaladEditForm from "./SaladEditForm";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -33,6 +34,7 @@ const App = (props) => {
       <TopBar user={currentUser} />
       <Switch>
         <AuthenticatedRoute exact path="/salads/new" component={SaladForm} user={currentUser}/>
+        <Route exact path="/salads/:id/edit" render={(props) => <SaladEditForm user={currentUser} {...props}/>}/>
         <Route exact path="/salads"
           render={(props) => <SaladList user={currentUser} {...props}/>}/>
         <Route
