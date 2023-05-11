@@ -3,6 +3,7 @@ import objection from "objection"
 import { ValidationError } from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import { User, Salad } from "../../../models/index.js"
+import uploadImage from "../../../services/uploadImage.js"
 
 const saladsRouter = new express.Router()
 
@@ -20,22 +21,22 @@ saladsRouter.get("/", async (req, res) => {
     }
 })
 
-saladsRouter.post("/new", async (req, res)=> {
-    const { name, description } = req.body
-    const { id } = req.user
-    try {
-        const postingUser = await User.query().findById(id)
-        const cleanSalad = cleanUserInput({ name, description })
-        const newSalad = await postingUser.$relatedQuery("salads").insertAndFetch(cleanSalad)
+saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
+        const { name, description } = req.body
+        const image = req.file ? req.file.location : null
 
-        return res.status(201).json({ salads: newSalad }) 
-    } catch(error) {
-        if (error instanceof ValidationError) {
-            res.status(422).json({ errors: error })
-        } else {
-            return res.status(500).json({ errors: error })
+        try {
+            const postingUser = req.user
+            const cleanSalad = cleanUserInput({ name, description })
+            const saladWithPicture = await Salad.query().insert({ name: cleanSalad.name, description: cleanSalad.description, userId: postingUser.id, imageURL: image})
+            return res.status(201).json({ salad: saladWithPicture }) 
+        } catch(error) {
+            if (error instanceof ValidationError) {
+                res.status(422).json({ errors: error })
+            } else {
+                return res.status(500).json({ errors: error })
+            }
         }
-    }
 })
 
 saladsRouter.get("/:id", async (req, res) => {
@@ -52,7 +53,6 @@ saladsRouter.get("/:id", async (req, res) => {
         
         return res.status(200).json({ salad: showSalad })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ errors: error })
     }
 })
