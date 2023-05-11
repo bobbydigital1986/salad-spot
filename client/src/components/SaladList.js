@@ -26,9 +26,7 @@ const SaladList = (props) => {
     }, [])
 
     const voteMaker = async(vote, salad) => {
-        // console.log("voteMaker initialized", vote, salad)
         const newSalad = await postVote(vote, salad)
-        console.log("newSalad", newSalad)
         const saladArray = salads.map((salad) => {
             if (salad?.id === newSalad?.id) {
                 return newSalad
@@ -36,10 +34,8 @@ const SaladList = (props) => {
                 return salad
             }
         })
-
         setSalads(saladArray)
     }
-
 
     const saladItems = salads.map((salad)=> {
         return (

@@ -4,6 +4,8 @@ import { ValidationError } from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import { User, Salad } from "../../../models/index.js"
 import saladSerializer from "../../../serializers/saladSerializer.js"
+import saladReviewsRouter from "./saladReviewsRouter.js"
+import uploadImage from "../../../services/uploadImage.js"
 
 const saladsRouter = new express.Router()
 
@@ -15,28 +17,26 @@ saladsRouter.get("/", async (req, res) => {
             salad.user = saladUser.username
             
             return await saladSerializer.voteDetails(salad)
-            //salad.votes = [array of votes]
-            //salad.rating = sum of votes for salad
         }))
 
         return res.status(200).json({ salads: salads })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ errors: error })
     }
 })
 
-saladsRouter.post("/new", async (req, res)=> {
+saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
     const { name, description } = req.body
     const { id } = req.user
+    const image = req.file ? req.file.location : null
+
     try {
         const postingUser = await User.query().findById(id)
         const cleanSalad = cleanUserInput({ name, description })
-        const newSaladSansVote = await postingUser.$relatedQuery("salads").insertAndFetch(cleanSalad)
+        const newSaladSansVote = await postingUser.$relatedQuery("salads").insertAndFetch({ name: cleanSalad.name, description: cleanSalad.description, userId: postingUser.id, imageURL: image})
         const newSalad = await saladSerializer.voteDetails(newSaladSansVote)
-        return res.status(201).json({ salads: newSalad }) 
+        return res.status(201).json({ salad: newSalad }) 
     } catch(error) {
-        console.log(error)
         if (error instanceof ValidationError) {
             res.status(422).json({ errors: error })
         } else {
@@ -60,7 +60,6 @@ saladsRouter.get("/:id", async (req, res) => {
         
         return res.status(200).json({ salad: showSaladWithVotes })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ errors: error })
     }
 })
@@ -72,7 +71,6 @@ saladsRouter.post("/vote", async (req, res) => {
         if (!voteLookup) {
             const voteLookupSansVote = await Vote.query().findOne({ saladId: body.saladId, userId: body.userId })
             if (voteLookupSansVote) {
-                // recalculate vote count for the review to send back to front-end
                 const newVote = await Vote.query().patchAndFetchById(voteLookupSansVote.id, { vote: body.vote })
                 return res.status(200).json({ newVote })
     
@@ -86,8 +84,8 @@ saladsRouter.post("/vote", async (req, res) => {
     } catch(err) {
         res.status(500).json({ errors: err })
     }
-
 })
 
+saladsRouter.use("/:id/reviews", saladReviewsRouter)
 
 export default saladsRouter;
