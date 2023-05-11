@@ -5,6 +5,7 @@ import cleanUserInput from "../../../services/cleanUserInput.js"
 import { User, Salad } from "../../../models/index.js"
 import saladSerializer from "../../../serializers/saladSerializer.js"
 import saladReviewsRouter from "./saladReviewsRouter.js"
+import uploadImage from "../../../services/uploadImage.js"
 
 const saladsRouter = new express.Router()
 
@@ -24,15 +25,17 @@ saladsRouter.get("/", async (req, res) => {
     }
 })
 
-saladsRouter.post("/new", async (req, res)=> {
+saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
     const { name, description } = req.body
     const { id } = req.user
+    const image = req.file ? req.file.location : null
+
     try {
         const postingUser = await User.query().findById(id)
         const cleanSalad = cleanUserInput({ name, description })
-        const newSaladSansVote = await postingUser.$relatedQuery("salads").insertAndFetch(cleanSalad)
+        const newSaladSansVote = await postingUser.$relatedQuery("salads").insertAndFetch({ name: cleanSalad.name, description: cleanSalad.description, userId: postingUser.id, imageURL: image})
         const newSalad = await saladSerializer.voteDetails(newSaladSansVote)
-        return res.status(201).json({ salads: newSalad }) 
+        return res.status(201).json({ salad: newSalad }) 
     } catch(error) {
         if (error instanceof ValidationError) {
             res.status(422).json({ errors: error })

@@ -12,6 +12,7 @@ const SaladShow = (props) =>{
         description: "",
         reviews: [],
         votes: [],
+        imageURL: "",
         rating: 0
     })
     const [errors, setErrors] = useState([])
@@ -96,17 +97,24 @@ const SaladShow = (props) =>{
         )
     }
 
+    let imageSection
+    if (salad.imageURL) {
+        imageSection = <img src={salad?.imageURL} className="salad-pics"/>
+    }
+
     const monthDay = getNiceDate(salad?.createdAt)
 
     return (
         <div className="callout review-tile">
-            <h1>{salad?.name}</h1>
+            <h1>{salad.name}</h1>
             <VotingButton 
                 voteMaker={voteMaker}
                 salad={salad}
                 user={props.user}
                 userVote={userVote}
             />
+            {imageSection}
+            <br />
             {salad?.user?.username} {monthDay}
             {descriptionSection}
             {reviewForm}
