@@ -3,16 +3,22 @@ import ReviewList from "./ReviewList";
 import ReviewForm from "./ReviewForm";
 import getNiceDate from "../services/getNiceDate";
 import translateServerErrors from "../services/translateServerErrors"
-
+import VotingButton from "./VotingButton";
+import postVote from "../services/postVote";
 
 const SaladShow = (props) =>{
     const [salad, setSalad] = useState({
         name: "",
         description: "",
-        reviews: []
+        reviews: [],
+        votes: [],
+        imageURL: "",
+        rating: 0
     })
     const [errors, setErrors] = useState([])
     const [reviews, setReviews] = useState([])
+    const [userVote, setUserVote] = useState(0)
+
     const postReview = async (newReview) => {
         try {
             const saladId = props.match.params.id
@@ -53,6 +59,7 @@ const SaladShow = (props) =>{
                 throw(error)
             }
             const responseBody = await response.json()
+            setUserVote(userVoteFinder(responseBody.salad.votes))
             setSalad(responseBody.salad)
             setReviews(responseBody.salad.reviews)
         } catch(error) {
@@ -64,8 +71,19 @@ const SaladShow = (props) =>{
         getSalad()
     }, [])
 
+    const userVoteFinder = (votes) => {
+        const matchingVote = votes.find((vote) => vote.userId === props.user?.id)
+        return matchingVote?.vote
+    }
+
+    const voteMaker = async(vote, salad) => {
+        const newSalad = await postVote(vote, salad)
+        setUserVote(userVoteFinder(newSalad.votes))        
+        setSalad(newSalad)
+    }
+
     let descriptionSection
-    if (salad.description) {
+    if (salad?.description) {
         descriptionSection = <p>Salad description: {salad.description}</p>
     }
 
@@ -79,11 +97,24 @@ const SaladShow = (props) =>{
         )
     }
 
-    const monthDay = getNiceDate(salad.createdAt)
+    let imageSection
+    if (salad.imageURL) {
+        imageSection = <img src={salad?.imageURL} className="salad-pics"/>
+    }
+
+    const monthDay = getNiceDate(salad?.createdAt)
 
     return (
         <div className="callout review-tile">
             <h1>{salad.name}</h1>
+            <VotingButton 
+                voteMaker={voteMaker}
+                salad={salad}
+                user={props.user}
+                userVote={userVote}
+            />
+            {imageSection}
+            <br />
             {salad?.user?.username} {monthDay}
             {descriptionSection}
             {reviewForm}
