@@ -16,6 +16,7 @@ voteRouter.post("/", async(req, res) =>{
                 return res.status(200).json({ newVote })
             } else {
                 const newVote = await Vote.query().insert({ vote: body.vote, userId: user.id, saladId: body.saladId })
+                
                 return res.status(201).json({ newVote: newVote })
             }
         } else {
