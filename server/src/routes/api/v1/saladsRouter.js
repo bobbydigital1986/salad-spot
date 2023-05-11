@@ -23,12 +23,12 @@ saladsRouter.get("/", async (req, res) => {
 
 saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
         const { name, description } = req.body
-        const image = req.file.location
+        const image = req.file ? req.file.location : null
 
         try {
             const postingUser = req.user
             const cleanSalad = cleanUserInput({ name, description })
-            const saladWithPicture = await Salad.query().insert({ name: cleanSalad.name, description: cleanSalad.description, userId: postingUser.id, imageURL: image})
+            const saladWithPicture = await Salad.query().insert({ name: cleanSalad.name, description: cleanSalad.description, userId: postingUser.id, imageURL: image })
             return res.status(201).json({ salad: saladWithPicture }) 
         } catch(error) {
             if (error instanceof ValidationError) {

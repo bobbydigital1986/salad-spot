@@ -66,15 +66,14 @@ const SaladForm = (props) => {
             const responseBody = await response.json()
             const updatedSalad = responseBody.salad
             setShouldRedirect({ status: true, newSaladId: updatedSalad.id })
-          }
-        } catch (error) {
-          console.error(`Error in fetch: ${error.message}`)
         }
-      }
-
+    } catch (error) {
+        console.error(`Error in fetch: ${error.message}`)
+    }
+}
 
     if (shouldRedirect) {
-        return <Redirect push to={`/salads/${newSaladId}`}/>
+        return <Redirect push to={`/salads/${shouldRedirect.newSaladId}`}/>
     }
 
     return (
