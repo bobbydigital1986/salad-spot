@@ -41,10 +41,6 @@ const SaladForm = (props) => {
         formData.append('name', newSalad.name)
         formData.append('description', newSalad.description)
         formData.append('image', newImageFormData.image)
-        for (const pair of formData.entries()) {
-            console.log(`${pair[0]}, ${pair[1]}`);
-          }
-      
         try {
           const response = await fetch('/api/v1/salads', {
             method: 'POST',
@@ -70,7 +66,7 @@ const SaladForm = (props) => {
         } catch (error) {
           console.error(`Error in fetch: ${error.message}`)
         }
-      }
+    }
 
 
     if (shouldRedirect) {
@@ -101,20 +97,19 @@ const SaladForm = (props) => {
                         />
                 </label>
                 <div className='callout primary'>
-                <Dropzone onDrop={handleImageUpload}>
-                        {({getRootProps, getInputProps}) => (
-                            <section>
-                                <div {...getRootProps()}>
-                                    <input {...getInputProps()} />
-                                    <p>Upload Your Salad Image - drag 'n' drop or click to upload</p>
-                                </div>
-                            </section>
-                        )}
-                </Dropzone>
+                  <Dropzone onDrop={handleImageUpload}>
+                          {({getRootProps, getInputProps}) => (
+                              <section>
+                                  <div {...getRootProps()}>
+                                      <input {...getInputProps()} />
+                                      <p>Upload Your Salad Image - drag 'n' drop or click to upload</p>
+                                  </div>
+                              </section>
+                          )}
+                  </Dropzone>
                 </div>
                 <input className="button" type="submit" value="Add" />
             </form>
-
         </div>
     )
 }
