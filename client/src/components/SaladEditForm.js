@@ -89,23 +89,23 @@ const SaladEditForm = (props) => {
 
         try {
             const response = await fetch(`/api/v1/salads/${saladId}`, {
-            method: 'DELETE',
-            headers: new Headers({
-                "Content-Type": "application/json"
-            }),
+                method: 'DELETE',
+                headers: new Headers({
+                    "Content-Type": "application/json"
+                }),
             })
             if (!response.ok) {
-            if (response.status == 422) {
-                const errorBody = await response.json()
-                const newErrors = translateServerErrors(errorBody.errors.data)
-                return setErrors(newErrors)
-            } else {
-                const errorMessage = `${response.status} (${response.statusText})`
-                const error = new Error(errorMessage)
-            }
-            } else {
-            const responseBody = await response.json()
-            setShouldRedirect({ status: true, newSaladId: "" })
+                if (response.status == 422) {
+                    const errorBody = await response.json()
+                    const newErrors = translateServerErrors(errorBody.errors.data)
+                    return setErrors(newErrors)
+                } else {
+                    const errorMessage = `${response.status} (${response.statusText})`
+                    const error = new Error(errorMessage)
+                }
+                } else {
+                const responseBody = await response.json()
+                setShouldRedirect({ status: true, newSaladId: "" })
             }
         } catch (error) {
             console.error(`Error in fetch: ${error.message}`)
