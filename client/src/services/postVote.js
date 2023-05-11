@@ -1,19 +1,5 @@
-
-// const updateTempRating = (salad, newVote) => {
-//     console.log("in TEMP RATING")
-//     // console.log(salad)
-//     // console.log(newVote)
-//     salad.rating = salad.rating + newVote.vote
-//     // console.log(salad)
-//     return salad
-// }
-
-
 const postVote = async(vote, salad) => {
     try {
-        // nested path POST "/api/v1/salad/saladId/votes"
-        // don't send userId - server can access via req.user
-        // vote = 1 / -1
         const response = await fetch("/api/v1/vote", {
             method: "POST",
             headers: new Headers({
@@ -26,47 +12,36 @@ const postVote = async(vote, salad) => {
                 const errorBody = await response.json()
                 const newErrors = translateServerErrors(errorBody.errors.data)
                 return setErrors(newErrors)
+            } else if (response.status == 304) {
+                return salad
             } else {
                 const errorMessage = `${response.status} (${response.statusText})`
                 const error = new Error(errorMessage)
-                console.log(error)
                 throw(error)
             }
-        } else {
+        }  else {
             const body = await response.json()
-            console.log(body)
-            // Looks through existing salad's votes, and replaces the matching old vote with the new one
             const matchingVote = salad.votes.find((vote) => vote.id === body.newVote.id)
-            // console.log("salad.votes before mutation", salad.votes)
-            // console.log("matchingVote", matchingVote)
-            // console.log("body.newVote", body.newVote)
             if (matchingVote) {
-                console.log("matching vote", salad)
-                // debugger
-                // let saladOfNewness = {...salad}
-                console.log("salad after copy", salad)
-                salad.votes = salad.votes.map(existingVote => {
+                    salad.votes = salad.votes.map(existingVote => {
                     if (existingVote?.id === body.newVote?.id) {
+                        body.newVote.vote = body.newVote.vote * 2
                         return body.newVote
                     } else {
                         return existingVote
                     }
                 })
-                console.log("salad post matching", salad)
                 salad.rating = salad.rating + body.newVote.vote
+                
                 return salad
-
-                // return updateTempRating(salad, body.newVote.vote)
             } else {
                 salad.votes = salad.votes.concat(body.newVote)
-                // console.log(salad)
                 salad.rating = salad.rating + body.newVote.vote
                 return salad
-                // return updateTempRating(salad, body.newVote.vote)
             } 
         }
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 }
 

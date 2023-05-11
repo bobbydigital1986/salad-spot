@@ -12,10 +12,13 @@ const SaladShow = (props) =>{
         description: "",
         reviews: [],
         votes: [],
+        imageURL: "",
         rating: 0
     })
     const [errors, setErrors] = useState([])
     const [reviews, setReviews] = useState([])
+    const [userVote, setUserVote] = useState(0)
+
     const postReview = async (newReview) => {
         try {
             const saladId = props.match.params.id
@@ -56,6 +59,7 @@ const SaladShow = (props) =>{
                 throw(error)
             }
             const responseBody = await response.json()
+            setUserVote(userVoteFinder(responseBody.salad.votes))
             setSalad(responseBody.salad)
             setReviews(responseBody.salad.reviews)
         } catch(error) {
@@ -67,11 +71,14 @@ const SaladShow = (props) =>{
         getSalad()
     }, [])
 
-    const voteMaker = async(vote, salad) => {
-        // console.log("voteMaker initialized", vote, salad)
-        const newSalad = await postVote(vote, salad)
-        console.log("newSalad", newSalad)
+    const userVoteFinder = (votes) => {
+        const matchingVote = votes.find((vote) => vote.userId === props.user?.id)
+        return matchingVote?.vote
+    }
 
+    const voteMaker = async(vote, salad) => {
+        const newSalad = await postVote(vote, salad)
+        setUserVote(userVoteFinder(newSalad.votes))        
         setSalad(newSalad)
     }
 
@@ -90,8 +97,13 @@ const SaladShow = (props) =>{
         )
     }
 
+    let imageSection
+    if (salad.imageURL) {
+        imageSection = <img src={salad?.imageURL} className="salad-pics"/>
+    }
+
     const monthDay = getNiceDate(salad?.createdAt)
-    console.log(salad)
+
     return (
         <div className="callout review-tile">
             <h1>{salad.name}</h1>
@@ -99,7 +111,10 @@ const SaladShow = (props) =>{
                 voteMaker={voteMaker}
                 salad={salad}
                 user={props.user}
+                userVote={userVote}
             />
+            {imageSection}
+            <br />
             {salad?.user?.username} {monthDay}
             {descriptionSection}
             {reviewForm}

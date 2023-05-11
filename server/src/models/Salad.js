@@ -44,7 +44,8 @@ class Salad extends Model{
             required: ["name"],
             properties: {
                 name: { type: "string" },
-                description: { type: "string" }
+                description: { type: "string" },
+                imageUrl: { type: "string" } 
             }
         }
     }
