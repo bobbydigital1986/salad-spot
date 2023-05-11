@@ -2,7 +2,7 @@ import express from "express"
 import objection from "objection"
 import { ValidationError } from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
-import { User, Salad } from "../../../models/index.js"
+import { User, Salad, Review, Vote } from "../../../models/index.js"
 import saladSerializer from "../../../serializers/saladSerializer.js"
 import saladReviewsRouter from "./saladReviewsRouter.js"
 import uploadImage from "../../../services/uploadImage.js"
@@ -36,6 +36,52 @@ saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
         const newSaladSansVote = await postingUser.$relatedQuery("salads").insertAndFetch({ name: cleanSalad.name, description: cleanSalad.description, userId: postingUser.id, imageURL: image})
         const newSalad = await saladSerializer.voteDetails(newSaladSansVote)
         return res.status(201).json({ salad: newSalad }) 
+    } catch(error) {
+        if (error instanceof ValidationError) {
+            res.status(422).json({ errors: error })
+        } else {
+            return res.status(500).json({ errors: error })
+        }
+    }
+})
+
+saladsRouter.patch("/:id", async (req, res)=> {
+    const { name, description } = req.body
+    const { id } = req.user
+    const saladId = req.params.id
+
+    try {
+        const saladToBeTossed = await Salad.query().findById(saladId)
+        if (id === saladToBeTossed.userId){
+            const cleanSalad = cleanUserInput({ name, description })
+            const updateSalad = await Salad.query().patchAndFetchById(saladId, { name: cleanSalad.name, description: cleanSalad.description })
+            return res.status(201).json({ salad: updateSalad }) 
+        } else {
+            return res.status(404).json({ status: "Invalid User" })
+        }
+    } catch(error) {
+        if (error instanceof ValidationError) {
+            res.status(422).json({ errors: error })
+        } else {
+            return res.status(500).json({ errors: error })
+        }
+    }
+})
+
+saladsRouter.delete("/:id", async (req, res)=> {
+    const { id } = req.user
+    const saladId = req.params.id
+
+    try {
+        const saladToBeTossed = await Salad.query().findById(saladId)
+        if (id === saladToBeTossed.userId) {
+            await Review.query().delete().where("saladId", "=", saladId)
+            await Vote.query().delete().where("saladId", "=", saladId)
+            await Salad.query().deleteById(saladId)
+            return res.status(201).json({status: "Salad Tossed"}) 
+        } else {
+            return res.status(404).json({ status: "Invalid user"})
+        }
     } catch(error) {
         if (error instanceof ValidationError) {
             res.status(422).json({ errors: error })
