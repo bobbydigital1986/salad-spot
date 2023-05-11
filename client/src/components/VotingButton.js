@@ -5,26 +5,31 @@ const VotingButton = ({ salad, voteMaker, user, userVote }) => {
     let subtractDisabled
     const matchingVote = salad?.votes.find((vote) => vote.userId === user?.id)
 
-    //Logic handling vote status in SaladList
-    if (matchingVote?.vote >= 1) {
+    if (!user) {
         addDisabled = true
-        subtractDisabled = false
-    } else if (matchingVote?.vote <= -1) {
-        addDisabled = false
         subtractDisabled = true
-    } 
-
-    //Logic handling vote status in SaladShow
-    if (!userVote && !matchingVote) {
-        addDisabled = false
-        subtractDisabled = false
-    } else if (userVote >= 1) {
-        addDisabled = true
-        subtractDisabled = false
-    } else if (userVote <= -1) {
-        addDisabled = false
-        subtractDisabled = true
-    } 
+    } else {
+        //Logic handling vote status in SaladList
+        if (matchingVote?.vote >= 1) {
+            addDisabled = true
+            subtractDisabled = false
+        } else if (matchingVote?.vote <= -1) {
+            addDisabled = false
+            subtractDisabled = true
+        } 
+    
+        //Logic handling vote status in SaladShow
+        if (!userVote && !matchingVote) {
+            addDisabled = false
+            subtractDisabled = false
+        } else if (userVote >= 1) {
+            addDisabled = true
+            subtractDisabled = false
+        } else if (userVote <= -1) {
+            addDisabled = false
+            subtractDisabled = true
+        } 
+    }
 
     const addVote = () => {
         return voteMaker(1, salad)
