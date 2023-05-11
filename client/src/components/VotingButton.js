@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCarrot, faPlantWilt } from "@fortawesome/free-solid-svg-icons";
 
 const VotingButton = ({ salad, voteMaker, user, userVote }) => {
     let addDisabled
@@ -41,9 +43,9 @@ const VotingButton = ({ salad, voteMaker, user, userVote }) => {
 
     return (
         <div className="voting-show-section">
-            <button className="button" onClick={addVote} disabled={addDisabled}>Fresh</button>
+            <button className="button fresh" onClick={addVote} disabled={addDisabled}><FontAwesomeIcon icon={faCarrot} className='icon' /></button>
             <p className="vote-count">{salad?.rating}</p>
-            <button className="button" onClick={subtractVote} disabled={subtractDisabled}>Wilted</button>
+            <button className="button wilted" onClick={subtractVote} disabled={subtractDisabled}><FontAwesomeIcon icon={faPlantWilt} className='icon' /></button>
         </div>
     )
 }
