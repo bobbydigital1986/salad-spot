@@ -73,7 +73,12 @@ a {
 }
 
 img {
-  height: 65px;
+  height: 100px;
+}
+
+.home-image {
+  width: 500px;
+  height: 400px;
 }
 
 .submitted-by {
@@ -99,8 +104,55 @@ img {
   list-style-type: none;
 }
 
+.salad-box {
+  border: 3px solid #263A29;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  background-color: #FEBD98;
+}
+
+.salad-list {
+  list-style-type: none;
+  text-align: center;
+}
+
+.salad-name {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 600;
+  height: 15%
+}
+
+.voting-button {
+  width: 20%;
+}
+
+.salad-description {
+  width: 40%;
+}
+
+.submitted-by {
+  width: 40%;
+  height: 5%;
+  margin-left: 20rem;
+  text-align: right;
+}
+
 .salad-pics {
   width: 30%;
   height: 30%;
+  margin-top: 0%;
+  margin-left: 25%;
+}
+
+.tile-image {
+  width: 20%;
+  height: 30%;
   position: relative;
+}
+
+.voting-show-section {
+  width: 30%;
 }

@@ -49,10 +49,10 @@ const SaladList = (props) => {
     })
 
     return (
-        <>
-            <h1>My Salad List</h1>
-            <ul>{saladItems}</ul>
-        </>
+        <div className="salad-list">
+            <h1 className="salad-list">My Salad List</h1>
+            <ul className="salad-list">{saladItems}</ul>
+        </div>
     )
 }
 
