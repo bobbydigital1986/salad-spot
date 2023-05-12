@@ -50,7 +50,7 @@ const SaladList = (props) => {
 
     return (
         <div className="salad-list">
-            <h1 className="salad-list">My Salad List</h1>
+            <h1 className="salad-list">Salad Posts</h1>
             <ul className="salad-list">{saladItems}</ul>
         </div>
     )

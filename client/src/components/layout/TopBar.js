@@ -28,39 +28,49 @@ const TopBar = ({ user }) => {
           <li className="menu-text">
             <h1>Salad Theory</h1>
           </li>
-          <li className="menu-text">
-            <Link to="/home">Home</Link>
-          </li>
-          {newPostLink}
-          <li className="menu-text">
-            <Link to="/salads">Salads</Link>
-          </li>
+          
         </ul>
       </div>
       <div className="top-bar-right">
         {user ? (
           <ul className="dropdown menu">
+            <li className="menu-text">
+              <Link to="/home">Home</Link>
+            </li>
+              {newPostLink}
+            <li className="menu-text">
+              <Link to="/salads">Salads</Link>
+            </li>
             <li>
-              <button
-                onClick={toggleDropDown}
-                className="username user-greeting"
-              >
-                Hello {user?.username}!
-              </button>
-              {showDropDown && (
-                <ul className="dropdown-menu">
-                  <li className="menu-text">
-                    <Link to="/profile">Profile</Link>
-                  </li>
-                  <li>
-                    <a key="sign-out"> <SignOutButton /></a>
-                  </li>
-                </ul>
-              )}
+              <div className="menu-text">
+                <button
+                  onClick={toggleDropDown}
+                  className="username user-greeting"
+                >
+                  Hello {user?.username}!
+                </button>
+                {showDropDown && (
+                  <ul className="dropdown-menu">
+                    <li className="menu-text">
+                      <Link to="/profile">Profile</Link>
+                    </li>
+                    <li>
+                      <a key="sign-out"> <SignOutButton /></a>
+                    </li>
+                  </ul>
+                )}
+              </div>
             </li>
           </ul>
         ) : (
           <ul className="menu">
+            <li className="menu-text">
+              <Link to="/home">Home</Link>
+            </li>
+              {newPostLink}
+            <li className="menu-text">
+              <Link to="/salads">Salads</Link>
+            </li>
             <li className="menu-text">
               <Link to="/user-sessions/new">Sign In</Link>
             </li>

@@ -86,7 +86,7 @@ const SaladShow = (props) =>{
 
     let descriptionSection
     if (salad?.description) {
-        descriptionSection = <p>Salad description: {salad.description}</p>
+        descriptionSection = <p className="salad-description cell small-5">Salad description: {salad.description}</p>
     }
 
     let reviewForm
@@ -122,18 +122,31 @@ const SaladShow = (props) =>{
 
     return (
         <div className="callout review-tile">
-            <h1>{salad.name}</h1>
-            <VotingButton 
-                voteMaker={voteMaker}
-                salad={salad}
-                user={props.user}
-                userVote={userVote}
-            />
-            {imageSection}
-            <br />
-            {salad?.user?.username} {monthDay}
-            {descriptionSection}
-            {editButton}
+            <div className="salad-box show-page">
+                <div className="grid-x">
+                    <h1 className="salad-name cell small-6">{salad.name}</h1>
+                    <h4 className='submitted-by cell auto'>{salad?.user?.username} {monthDay}</h4>
+                </div>
+                <div className="grid-x">
+                    <div className="voting-button cell small-2">
+                        <VotingButton 
+                            voteMaker={voteMaker}
+                            salad={salad}
+                            user={props.user}
+                            userVote={userVote}
+                        />
+                    </div>
+                    <div className='tile-image cell small-5'>
+                        {imageSection}
+                    </div>
+                    <div>
+                        {descriptionSection}
+
+                    </div>
+                </div>
+                <br />
+                {editButton}
+            </div>
             {reviewForm}
             <ReviewList reviews={reviews} />
         </div>
