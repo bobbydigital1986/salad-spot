@@ -186,6 +186,7 @@ img {
 .voting-show-section > p {
   font-size: 2em;
   font-family: 'Lilita One', cursive;
+  text-align: center;
 }
 
 .fresh,
@@ -206,9 +207,10 @@ img {
   margin-top: 1rem;
 }
 
-.vote-count {
-  margin-left: 0.8em;
-}
+// .vote-count {
+//   margin-left: 0.8em;
+
+// }
 
 .show-submitted {
   font-size: 21px;
