@@ -14,6 +14,16 @@ body {
   background-color: $main-background-color;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("https://images.unsplash.com/photo-1600335895229-6e75511892c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80");
+  opacity: 0.5;
+}
+
 *,
 *::before,
 *::after {
@@ -44,7 +54,7 @@ p {
 
 a {
   font-family: 'Montserrat', sans-serif;
-  margin-top: 1.1rem;
+  margin-bottom: 1.1rem;
 }
 
 .username { 
@@ -72,7 +82,7 @@ a {
 }
 
 img {
-  height: 100px;
+  height: 5em;
 }
 
 .home-image {
@@ -107,6 +117,7 @@ img {
   font-family: 'Lilita One', cursive;
   font-size: .7em;
   color: $main-text-color;
+  margin: auto
 }
 
 .dropdown-menu {
@@ -116,6 +127,11 @@ img {
   z-index: 1;
   list-style-type: none;
   width: auto;
+  border-bottom:#263A29 solid;
+  background-color: #FEBD98;
+}
+.dropdown-menu > li {
+  border-top: #263A29 solid;
 }
 
 .user-greeting {
@@ -124,15 +140,22 @@ img {
 
 .user-salad-list {
   list-style-type: none;
+  margin: 1em
 }
 
 .salad-box {
-  border: 3px solid #263A29;
+  border: 3px solid $navbar-text-color;
   width: 60%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 15px;
   background-color: #FEBD98;
+  border-radius: 1em;
+  padding: 1em;
+}
+
+.salad-box.show-page {
+  width: 90%;
 }
 
 .salad-list {
@@ -141,46 +164,27 @@ img {
 }
 
 .salad-name {
-  width: 100%;
-  font-size: 20px;
+  font-size: 2em;
   font-weight: 600;
-  height: 15%
+  text-align: left;
 }
 
 .voting-button {
   width: 20%;
 }
 
-.salad-description {
-  width: 40%;
-}
-
-.submitted-by {
-  width: 40%;
-  height: 5%;
-  margin-left: 20rem;
-  text-align: right;
-}
 
 .salad-pics {
-  width: 30%;
-  height: 30%;
-  margin-top: 0%;
-  margin-left: 25%;
+  width: 80%;
 }
 
-.tile-image {
-  width: 20%;
-  height: 30%;
-  position: relative;
+.tile-image > img {
+  height: 80%;
 }
 
-.form-title {
-  text-align: center
-}
-
-.voting-show-section {
-  width: 30%;
+.voting-show-section > p {
+  font-size: 2em;
+  font-family: 'Lilita One', cursive;
 }
 
 .fresh,

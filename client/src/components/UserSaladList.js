@@ -28,7 +28,7 @@ const UserSaladList = (props) => {
         const monthDay = getNiceDate(saladObject.createdAt)
 
         return(
-            <li className="user-salad-list" key={saladObject.id}>
+            <li className="user-salad-list callout" key={saladObject.id}>
                 <h4><Link to={`/salads/${saladObject.id}`}>{saladObject.name}</Link></h4>
                 <h5>Posted at: {monthDay}</h5>
             </li>
