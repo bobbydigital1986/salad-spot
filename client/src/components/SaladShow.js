@@ -121,11 +121,11 @@ const SaladShow = (props) =>{
     }
 
     return (
-        <div className="callout review-tile">
+        <div className="callout salad-show-tile">
             <div className="salad-box show-page">
                 <div className="grid-x">
                     <h1 className="salad-name cell small-6">{salad.name}</h1>
-                    <h4 className='submitted-by cell auto'>{salad?.user?.username} {monthDay}</h4>
+                    <h4 className='cell auto show-submitted'>{salad?.user?.username} {monthDay}</h4>
                 </div>
                 <div className="grid-x">
                     <div className="voting-button cell small-2">
@@ -139,7 +139,7 @@ const SaladShow = (props) =>{
                     <div className='tile-image cell small-5'>
                         {imageSection}
                     </div>
-                    <div>
+                    <div className="small-4">
                         {descriptionSection}
 
                     </div>

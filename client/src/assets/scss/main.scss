@@ -180,6 +180,7 @@ img {
 
 .tile-image > img {
   height: 80%;
+  width: 70%
 }
 
 .voting-show-section > p {
@@ -196,4 +197,20 @@ img {
 .icon {
   height: 2rem;
   width: 2rem;
+}
+
+.salad-show-tile {
+  width: 60%;
+  position: center;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.vote-count {
+  margin-left: 0.8em;
+}
+
+.show-submitted {
+  font-size: 21px;
+  margin-left: 8em;
 }
