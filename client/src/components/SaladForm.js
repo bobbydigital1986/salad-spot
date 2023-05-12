@@ -74,8 +74,8 @@ const SaladForm = (props) => {
     }
 
     return (
-        <div className="callout review-title">
-            <h1>Add a New Salad</h1>
+        <div className="callout review-title salad-box salad-form">
+            <h1 className="form-title">Add a New Salad</h1>
             <ErrorList errors={errors}/>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -102,7 +102,7 @@ const SaladForm = (props) => {
                                 <section>
                                     <div {...getRootProps()}>
                                         <input {...getInputProps()} />
-                                        <p>Upload Your Salad Image - drag 'n' drop or click to upload</p>
+                                        <p className="form-title">Upload Your Salad Image - drag 'n' drop or click to upload</p>
                                     </div>
                                 </section>
                             )}
