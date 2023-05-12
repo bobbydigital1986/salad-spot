@@ -100,7 +100,7 @@ const RegistrationForm = () => {
   }
 
   return (
-    <div className="grid-container form-standard">
+    <div className="grid-container home-box">
       <h1>Register</h1>
       <form onSubmit={onSubmit}>
         <div>
