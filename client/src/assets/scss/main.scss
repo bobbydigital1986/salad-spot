@@ -30,7 +30,6 @@ body::before {
   box-sizing: border-box;
 }
 
-
 :root {
   -moz-tab-size: 4;
   tab-size: 4;
@@ -87,8 +86,31 @@ img {
 }
 
 .home-image {
-  width: 500px;
-  height: 400px;
+  width: 450px;
+  height: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.background {
+  background-color: #FEBD98;
+}
+
+.home-box {
+  border: 3px solid #263A29;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  background-color: #FEBD98;
+  border-radius: 10px;
+  margin-top: 3em;
+  text-align: center;
+}
+
+.salad-form {
+  border-radius: 10px;
+  margin: 7em;
 }
 
 .submitted-by {
