@@ -2,10 +2,13 @@ import { User, Salad, Vote } from "../../models/index.js";
 
 class VoteSeeder {
     static async seed() {
-        const firstSalad = await Salad.query().first()
-        const firstUser = await User.query().first()
-        
-        await Vote.query().insert({ vote: 1, userId: firstUser.id, saladId: firstSalad.id})
+        const salads = await Salad.query()
+        const users = await User.query()
+        for (const user of users) {
+            for (const salad of salads) {
+                    await Vote.query().insert({ vote: 1, userId: user.id, saladId: salad.id})
+            }
+        }
     }
 }
 
