@@ -10,12 +10,6 @@ const isDevelopment = ["development", "test", "e2e"].includes(
 
 const initialEntryPoints = isDevelopment ? ["webpack-hot-middleware/client?reload=true"] : [];
 
-let reactDomAlias = {};
-if (isDevelopment) {
-  reactDomAlias = {
-    "react-dom": "@hot-loader/react-dom",
-  };
-}
 module.exports = {
   entry: [...initialEntryPoints, path.join(__dirname, "./src/main.js")],
   context: path.resolve(__dirname),
@@ -38,11 +32,11 @@ module.exports = {
         test: /\.(js)$/,
         exclude: /(node_modules|bower_components)/,
         loader: "babel-loader",
-        options: { presets: ["@babel/env"], cwd: path.resolve(__dirname) },
-      },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        loader: "file-loader",
+        options: {
+          configFile: path.resolve(__dirname, "babel.config.js"), // Explicitly specify Babel config file
+          cacheDirectory: true, // Enable caching for faster rebuilds
+          sourceMaps: true, // Enable source maps for debugging
+        },
       },
       {
         test: /\.module\.s(a|c)ss$/,
@@ -54,13 +48,14 @@ module.exports = {
               modules: true,
               sourceMap: isDevelopment,
               esModule: true,
-              hmr: isDevelopment,
             },
           },
           {
             loader: "sass-loader",
             options: {
               sourceMap: isDevelopment,
+              // prefer Dart Sass (`sass` package) over deprecated node-sass
+              implementation: require('sass')
             },
           },
         ],
@@ -75,6 +70,8 @@ module.exports = {
             loader: "sass-loader",
             options: {
               sourceMap: isDevelopment,
+              // prefer Dart Sass (`sass` package) over deprecated node-sass
+              implementation: require('sass')
             },
           },
         ],
@@ -82,12 +79,11 @@ module.exports = {
     ],
   },
   resolve: {
+    extensions: [".js", ".jsx"],
     alias: {
-      ...reactDomAlias,
-      "@Components": path.resolve(__dirname, "src/components/"),
-      "@Providers": path.resolve(__dirname, "src/providers/"),
+      react: path.resolve(__dirname, "../node_modules/react"),
+      "react-dom": path.resolve(__dirname, "../node_modules/react-dom"),
     },
-    extensions: ["*", ".js", ".scss"],
   },
   output: {
     path: path.resolve(__dirname, "../server/public/dist"),
@@ -98,8 +94,8 @@ module.exports = {
     contentBase: path.join(__dirname, "public/"),
     historyApiFallback: true,
     port: 3000,
-    publicPath: "http://localhost:3000/dist/",
-    hotOnly: true,
+    publicPath: "/dist/", // Ensure alignment with output.publicPath
+    hot: true, // Changed from hotOnly to hot
     proxy: [
       {
         context: ["/auth", "/api"],

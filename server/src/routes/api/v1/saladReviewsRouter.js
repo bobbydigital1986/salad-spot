@@ -4,6 +4,7 @@ const{ ValidationError } = objection
 import { Review } from '../../../models/index.js'
 import cleanUserInput from '../../../services/cleanUserInput.js'
 import ReviewSerializer from '../../../serializers/ReviewSerializer.js'
+import Bugsnag from '@bugsnag/js';  
 
 const saladReviewsRouter = new express.Router({ mergeParams: true })
 
@@ -20,6 +21,7 @@ saladReviewsRouter.post('/', async (req, res) => {
         const reviewSerialized = ReviewSerializer.reviewDetails(newReview)
         return res.status(201).json({ body: reviewSerialized })
     } catch(error) {
+        Bugsnag.notify(error)
         if (error instanceof ValidationError) {
             return res.status(422).json({ errors: error })
         }

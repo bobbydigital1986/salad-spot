@@ -1,3 +1,4 @@
+import Bugsnag from "@bugsnag/js";
 import express from "express";
 import passport from "passport";
 
@@ -7,6 +8,7 @@ sessionRouter.post("/", (req, res, next) => {
   return passport.authenticate("local", (err, user) => {
     if (err) {
       // eslint-disable-next-line no-console
+      Bugsnag.notify(err);
       console.log(err);
     }
 
@@ -24,6 +26,7 @@ sessionRouter.get("/current", async (req, res) => {
   if (req.user) {
     res.status(200).json(req.user);
   } else {
+    Bugsnag.notify(req.err);
     res.status(401).json(undefined);
   }
 });

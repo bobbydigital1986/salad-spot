@@ -1,17 +1,21 @@
 {
   "scripts": {
     "build": "./node_modules/.bin/webpack",
-    "dev": "./node_modules/.bin/webpack-dev-server"
+    "dev": "./node_modules/.bin/webpack-dev-server",
+    "upload:sourcemaps": "bugsnag-cli upload js ../server/public/dist --base-url \"http://localhost:3000/dist/\" --version-name \"$npm_package_version\" --overwrite --api-key ef72bcbee2ac5e58e27a09c83341eeb1",
+    "release": "npm run build && npm run upload:sourcemaps"
   },
   "license": "UNLICENSED",
   "private": true,
   "name": "salad-spot-client",
   "version": "0.0.1",
   "engines": {
-    "node": "^16.18"
+    "node": "^20.0.0"
   },
   "devDependencies": {
-    "@hot-loader/react-dom": "~16.13",
+    "@bugsnag/cli": "3.1.1",
+    "sass": "^1.93.0",
+    "sass-loader": "^13.0.0",
     "webpack-dev-server": "~3.11"
   },
   "dependencies": {
@@ -25,6 +29,15 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.6.2",
+    "@bugsnag/browser-performance": "^3.0.0",
+    "@bugsnag/cli": "3.1.1",
+    "@bugsnag/js": "^8.4.0",
+    "@bugsnag/plugin-react": "^8.4.0",
+    "@bugsnag/react-router-performance": "^3.0.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/react-router-dom": "^5.3.3",
     "babel-loader": "~8.1",
     "css-loader": "^5.0.0",
@@ -32,22 +45,19 @@
     "foundation-sites": "^6.7.5",
     "html-webpack-plugin": "^5.2.0",
     "mini-css-extract-plugin": "^0.9.0",
-    "node-sass": "^8.0.0",
     "prop-types": "~15.7",
-    "react": "~16.13",
-    "react-dom": "~16.13",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-dropzone": "^11.3.1",
-    "react-hot-loader": "^4.12.21",
     "react-router-dom": "5.2",
     "redbox-react": "~1.6",
     "sass-loader": "^6.0.7",
     "style-loader": "^1.2.1",
     "webpack": "^5.3.2",
     "webpack-cli": "^4.1.0",
-    "webpack-hot-middleware": "^2.25.0",
-    "@fortawesome/fontawesome-svg-core": "^6.4.0",
-    "@fortawesome/free-regular-svg-icons": "^6.4.0",
-    "@fortawesome/free-solid-svg-icons": "^6.4.0",
-    "@fortawesome/react-fontawesome": "^0.2.0"
+    "webpack-hot-middleware": "^2.25.0"
+  },
+  "resolutions": {
+    "react-dom": "^19.1.1"
   }
 }

@@ -7,7 +7,7 @@ import config from "../config.js"
 AWS.config.update({
     accessKeyId: config.awsAccess.key,
     secretAccessKey: config.awsSecret.key,
-    region: "us-east-1"
+    region: "us-east-2"
 })
 
 const s3 = new AWS.S3()
