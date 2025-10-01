@@ -7,6 +7,7 @@ const getCurrentUser = async () => {
   if(!response.ok) {
     const errorMessage = `${response.status} (${response.statusText})`
     const error = new Error(errorMessage)
+    Bugsnag.notify(error)
     throw(error)
   }
   const userData = await response.json()

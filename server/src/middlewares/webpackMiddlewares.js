@@ -4,6 +4,8 @@ import hotMiddleware from "webpack-hot-middleware";
 import webpackConfig from "../../../client/webpack.config.js";
 const compiler = webpack(webpackConfig);
 
+console.log(webpackConfig.output.publicPath)
+
 export default () => {
   return [
     devMiddleware(compiler, {

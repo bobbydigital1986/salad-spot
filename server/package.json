@@ -22,7 +22,7 @@
   "version": "0.0.1",
   "name": "salad-spot-server",
   "engines": {
-    "node": "^16.18"
+    "node": "^20.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.5",
@@ -47,6 +47,8 @@
     "webpack-hot-middleware": "^2.25.3"
   },
   "dependencies": {
+    "@bugsnag/js": "^8.4.0",
+    "@bugsnag/plugin-express": "^8.4.0",
     "aws-sdk": "^2.1374.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",

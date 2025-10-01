@@ -3,6 +3,7 @@ import ErrorList from "./layout/ErrorList"
 import translateServerErrors from "../services/translateServerErrors"
 import { Redirect } from "react-router-dom"
 import Dropzone from "react-dropzone"
+import Bugsnag from "@bugsnag/js";
 
 const SaladForm = (props) => {
     const [images, setImages] = useState([])
@@ -57,6 +58,7 @@ const SaladForm = (props) => {
                 } else {
                     const errorMessage = `${response.status} (${response.statusText})`
                     const error = new Error(errorMessage)
+                    throw(error)
                 }
             } else {
                 const responseBody = await response.json()
@@ -64,7 +66,9 @@ const SaladForm = (props) => {
                 setShouldRedirect({ status: true, newSaladId: updatedSalad.id })
                 }
         } catch (error) {
+            Bugsnag.notify(error)
             console.error(`Error in fetch: ${error.message}`)
+
         }
     }
 

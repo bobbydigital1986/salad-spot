@@ -6,6 +6,7 @@ import { User, Salad, Review, Vote } from "../../../models/index.js"
 import saladSerializer from "../../../serializers/saladSerializer.js"
 import saladReviewsRouter from "./saladReviewsRouter.js"
 import uploadImage from "../../../services/uploadImage.js"
+import Bugsnag from '@bugsnag/js';  
 
 const saladsRouter = new express.Router()
 
@@ -37,6 +38,7 @@ saladsRouter.post("/", uploadImage.single("image"), async (req, res)=> {
         const newSalad = await saladSerializer.voteDetails(newSaladSansVote)
         return res.status(201).json({ salad: newSalad }) 
     } catch(error) {
+        Bugsnag.notify(error)
         if (error instanceof ValidationError) {
             res.status(422).json({ errors: error })
         } else {
@@ -60,6 +62,7 @@ saladsRouter.patch("/:id", async (req, res)=> {
             return res.status(404).json({ status: "Invalid User" })
         }
     } catch(error) {
+        Bugsnag.notify(error)
         if (error instanceof ValidationError) {
             res.status(422).json({ errors: error })
         } else {
@@ -83,6 +86,7 @@ saladsRouter.delete("/:id", async (req, res)=> {
             return res.status(404).json({ status: "Invalid user"})
         }
     } catch(error) {
+        Bugsnag.notify(error)
         if (error instanceof ValidationError) {
             res.status(422).json({ errors: error })
         } else {

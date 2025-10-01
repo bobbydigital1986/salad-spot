@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import config from "../../config";
 import FormError from "../layout/FormError";
+import Bugsnag from '@bugsnag/js';
 
 const SignInForm = () => {
   const [userPayload, setUserPayload] = useState({ email: "", password: "" });
@@ -49,12 +50,14 @@ const SignInForm = () => {
           if(!response.ok) {
             const errorMessage = `${response.status} (${response.statusText})`
             const error = new Error(errorMessage)
+            Bugsnag.notify(error)
             throw(error)
           }
           const userData = await response.json()
           setShouldRedirect(true)
         }
       } catch(err) {
+        Bugsnag.notify(err)
         console.error(`Error in fetch: ${err.message}`)
       }
     }

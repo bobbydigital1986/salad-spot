@@ -3,6 +3,7 @@ import ErrorList from "./layout/ErrorList"
 import translateServerErrors from "../services/translateServerErrors"
 import { Redirect } from "react-router-dom"
 import cleanDBOutput from "../services/cleanDBOutput";
+import Bugsnag from '@bugsnag/js';
 
 const SaladEditForm = (props) => {
 
@@ -39,6 +40,7 @@ const SaladEditForm = (props) => {
 
                 setNewSalad({ name: updatedSalad.name, description: updatedSalad.description })
         } catch(error) {
+            Bugsnag.notify(error)
             console.error(`Error in Fetch ${error.message}`)
         }
     }

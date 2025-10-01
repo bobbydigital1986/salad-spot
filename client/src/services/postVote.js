@@ -1,3 +1,5 @@
+import Bugsnag from "@bugsnag/js"
+
 const postVote = async(vote, salad) => {
     try {
         const response = await fetch("/api/v1/vote", {
@@ -41,6 +43,7 @@ const postVote = async(vote, salad) => {
             } 
         }
     } catch (error) {
+        Bugsnag.notify(error)
         console.error(error)
     }
 }

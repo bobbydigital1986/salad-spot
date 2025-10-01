@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import SaladTile from "./SaladTile"
 import postVote from "../services/postVote"
+import Bugsnag from '@bugsnag/js';
 
 const SaladList = (props) => {
 
@@ -17,6 +18,7 @@ const SaladList = (props) => {
             const responseBody = await response.json()
             setSalads(responseBody.salads)
         } catch(error) {
+            Bugsnag.notify(error)
             console.error(`Error in Fetch: ${error.message}`)
         }
     }

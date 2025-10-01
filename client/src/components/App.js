@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { hot } from "react-hot-loader/root";
 import SaladList from "./SaladList";
 import SaladShow from "./SaladShow";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
@@ -29,6 +28,7 @@ const App = (props) => {
     fetchCurrentUser()
   }, [])
 
+
   return (
     <Router>
       <TopBar user={currentUser} />
@@ -50,4 +50,4 @@ const App = (props) => {
   );
 };
 
-export default hot(App);
+export default App;

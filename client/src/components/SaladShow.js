@@ -6,6 +6,7 @@ import translateServerErrors from "../services/translateServerErrors"
 import VotingButton from "./VotingButton";
 import postVote from "../services/postVote";
 import { Redirect } from "react-router-dom";
+import Bugsnag from '@bugsnag/js';  
 
 const SaladShow = (props) =>{
     const [salad, setSalad] = useState({
@@ -47,6 +48,7 @@ const SaladShow = (props) =>{
                 return setReviews([body.body, ...reviews])
             }
         } catch(error) {
+            Bugsnag.notify(error)
             console.error(`Error in Fetch ${error.message}`)
         }
     }
@@ -65,6 +67,7 @@ const SaladShow = (props) =>{
             setSalad(responseBody.salad)
             setReviews(responseBody.salad.reviews)
         } catch(error) {
+            Bugsnag.notify(error)
             console.error(`Error in Fetch ${error.message}`)
         }
     }

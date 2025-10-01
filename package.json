@@ -11,12 +11,18 @@
     "dev": "yarn workspace salad-spot-server dev",
     "dev:debug": "yarn workspace salad-spot-server dev:debug",
     "heroku-postbuild": "yarn workspace salad-spot-client build",
-    "start": "yarn workspace salad-spot-server start",
+  "start": "NODE_OPTIONS=--openssl-legacy-provider yarn workspace salad-spot-server start",
     "dev:cypress": "yarn workspace salad-spot-server dev:e2e",
     "e2e:open": "yarn workspace salad-spot-e2e e2e:open",
     "e2e:run": "yarn workspace salad-spot-e2e e2e:run"
   },
   "engines": {
-    "node": "^16.18"
+    "node": "^20.0.0"
+  },
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.28.3"
   }
 }

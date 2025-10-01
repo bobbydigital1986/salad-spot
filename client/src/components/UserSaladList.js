@@ -16,6 +16,7 @@ const UserSaladList = (props) => {
             const body = await response.json()
             setUserSalads(body.user.salads)
         } catch (error){
+            Bugsnag.notify(error)
             console.error(`Error in fetch: ${error.message}`)
         }
     }
